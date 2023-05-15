@@ -1,4 +1,4 @@
-package io.github.pixelmonaskarion.xmlsms
+package io.github.pixelmonaskarion.protomms
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

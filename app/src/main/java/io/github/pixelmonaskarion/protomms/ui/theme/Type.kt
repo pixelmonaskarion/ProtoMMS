@@ -1,4 +1,4 @@
-package io.github.pixelmonaskarion.xmlsms.ui.theme
+package io.github.pixelmonaskarion.protomms.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

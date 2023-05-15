@@ -1,4 +1,4 @@
-package io.github.pixelmonaskarion.xmlsms
+package io.github.pixelmonaskarion.protomms
 
 import org.junit.Test
 

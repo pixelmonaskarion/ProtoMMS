@@ -1,4 +1,4 @@
-package io.github.pixelmonaskarion.xmlsms;
+package io.github.pixelmonaskarion.protomms;
 
 public class XMLSMS {
     public static final String MESSAGE_PREFIX = "\uD83C\uDDFD\u200B\uD83C\uDDF2\u200B\uD83C\uDDF1\u200B\uD83C\uDDF8\u200B\uD83C\uDDF2\u200B\uD83C\uDDF8";
