@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package io.github.pixelmonaskarion.protomms.proto;
+import "google/protobuf/empty.proto";
+
+message Message {
+  optional string text = 1;
+  optional string attachments = 2;
+  int32 message_id = 3;
+  repeated Recipient recipients = 4;
+}
+
+message Recipient {
+  string address = 1;
+}
+
+service ProtoMMSService {
+  rpc SendMessage (Message) returns (google.protobuf.Empty);
+}
+
+//protoc -I=F:\chris\AndroidStudioProjects\ProtoMMS\app\src\main\java\ --java_out=F:\chris\AndroidStudioProjects\ProtoMMS\app\src\main\java\ --kotlin_out=F:\chris\AndroidStudioProjects\ProtoMMS\app\src\main\java\ F:\chris\AndroidStudioProjects\ProtoMMS\app\src\main\java\io\github\pixelmonaskarion\protomms\proto\proto_mms.proto

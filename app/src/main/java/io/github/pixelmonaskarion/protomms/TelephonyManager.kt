@@ -1,12 +1,11 @@
 package io.github.pixelmonaskarion.protomms
 
 import android.annotation.SuppressLint
-import android.app.PendingIntent
 import android.content.ContentResolver
-import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
-import android.os.Build
+import android.os.Environment
 import android.provider.ContactsContract.Contacts
 import android.provider.Telephony
 import android.provider.Telephony.Mms
@@ -14,16 +13,9 @@ import android.provider.Telephony.Sms
 import android.provider.Telephony.Threads
 import android.telephony.SmsManager
 import android.util.Log
-import androidx.annotation.RequiresApi
-import com.klinker.android.send_message.Settings
-import com.klinker.android.send_message.Transaction
-import io.github.pixelmonaskarion.protomms.mms.pdu.EncodedStringValue
-import io.github.pixelmonaskarion.protomms.mms.pdu.PduBody
-import io.github.pixelmonaskarion.protomms.mms.pdu.PduComposer
+import androidx.core.content.ContextCompat.startActivity
 import io.github.pixelmonaskarion.protomms.mms.pdu.PduHeaders
-import io.github.pixelmonaskarion.protomms.mms.pdu.PduPart
-import io.github.pixelmonaskarion.protomms.mms.pdu.SendReq
-import java.io.File
+
 
 data class Message(val author: String, val sender_id: Long, val body: String)
 data class Thread(val id: Int, val recipients: String)
@@ -116,9 +108,15 @@ fun sendSMS(messageText: String, address: String) {
         Log.e("ProtoMMS", "No Content Resolver!")
         return;
     }
-    var settings = Settings()
-    settings.useSystemSending = true;
-    var transaction = Transaction(context, settings);
-    var message = com.klinker.android.send_message.Message(messageText, address);
-    transaction.sendNewMessage(message, 0)
+    //WORKS BUT OPENS GUI
+//    val intent = Intent(Intent.ACTION_SENDTO)
+//    intent.data = Uri.parse("mms:")
+//    intent.putExtra("address", address)
+//    intent.putExtra("sms_body", messageText)
+//    startActivity(context!!, intent, null)
+
+    val smsManager = SmsManager.getDefault()
+    smsManager.divideMessage(messageText).forEach {
+        smsManager.sendTextMessage(address, null, it, null, null)
+    }
 }

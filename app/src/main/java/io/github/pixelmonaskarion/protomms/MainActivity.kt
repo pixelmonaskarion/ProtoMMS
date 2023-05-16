@@ -103,7 +103,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        init(contentResolver, applicationContext)
+        init(contentResolver, this)
         checkPermissions(arrayListOf(Manifest.permission.READ_SMS, Manifest.permission.SEND_SMS, Manifest.permission.READ_CONTACTS), applicationContext)
     }
 }
@@ -264,7 +264,7 @@ fun MessageCard(msg: Message) {
                 Button(
                     onClick = {
                         if (expandedState == 2) {
-                            sendSMS(XMLSMS.createBody(messageInput), msg.author)
+                            sendSMS(encodeMessage(messageInput), msg.author)
                             messageInput = ""
                         } else {
                             expandedState = 2
