@@ -15,6 +15,8 @@ import android.provider.Telephony.Threads
 import android.telephony.SmsManager
 import android.util.Log
 import androidx.annotation.RequiresApi
+import com.klinker.android.send_message.Settings
+import com.klinker.android.send_message.Transaction
 import io.github.pixelmonaskarion.protomms.mms.pdu.EncodedStringValue
 import io.github.pixelmonaskarion.protomms.mms.pdu.PduBody
 import io.github.pixelmonaskarion.protomms.mms.pdu.PduComposer
@@ -114,28 +116,9 @@ fun sendSMS(messageText: String, address: String) {
         Log.e("ProtoMMS", "No Content Resolver!")
         return;
     }
-    var smsManager = SmsManager.getDefault()
-
-    var sendReq = SendReq()
-    sendReq.addTo(EncodedStringValue(address))
-
-    var pduBody = PduBody();
-
-    var pduPart = PduPart();
-    pduPart.contentType = "text/plain".encodeToByteArray();
-    pduPart.data = messageText.encodeToByteArray()
-    pduPart.name = "Message Body".encodeToByteArray()
-    pduPart.contentId = "0".encodeToByteArray()
-
-    pduBody.addPart(pduPart)
-
-    sendReq.body = pduBody
-    val composer = PduComposer(context, sendReq)
-    val bytesToSend = composer.make()
-
-    var uri = Uri.fromFile(File.createTempFile("mmsmessage", "txt", context!!.cacheDir));
-    var outputStream = contentResolver!!.openOutputStream(uri!!)!!
-    outputStream.write(bytesToSend)
-    outputStream.close()
-    SmsManager.getDefault().sendMultimediaMessage()
+    var settings = Settings()
+    settings.useSystemSending = true;
+    var transaction = Transaction(context, settings);
+    var message = com.klinker.android.send_message.Message(messageText, address);
+    transaction.sendNewMessage(message, 0)
 }
