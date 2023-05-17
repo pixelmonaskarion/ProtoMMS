@@ -93,73 +93,97 @@ public object MessageKt {
     }
 
     /**
+     * `.io.github.pixelmonaskarion.protomms.proto.Address sender = 4;`
+     */
+    public var sender: io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address
+      @JvmName("getSender")
+      get() = _builder.getSender()
+      @JvmName("setSender")
+      set(value) {
+        _builder.setSender(value)
+      }
+    /**
+     * `.io.github.pixelmonaskarion.protomms.proto.Address sender = 4;`
+     */
+    public fun clearSender() {
+      _builder.clearSender()
+    }
+    /**
+     * `.io.github.pixelmonaskarion.protomms.proto.Address sender = 4;`
+     * @return Whether the sender field is set.
+     */
+    public fun hasSender(): kotlin.Boolean {
+      return _builder.hasSender()
+    }
+
+    /**
      * An uninstantiable, behaviorless type to represent the field in
      * generics.
      */
     @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)
     public class RecipientsProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
     /**
-     * `repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;`
+     * `repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;`
      */
-     public val recipients: com.google.protobuf.kotlin.DslList<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient, RecipientsProxy>
+     public val recipients: com.google.protobuf.kotlin.DslList<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address, RecipientsProxy>
       @kotlin.jvm.JvmSynthetic
       get() = com.google.protobuf.kotlin.DslList(
         _builder.getRecipientsList()
       )
     /**
-     * `repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;`
+     * `repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;`
      * @param value The recipients to add.
      */
     @kotlin.jvm.JvmSynthetic
     @kotlin.jvm.JvmName("addRecipients")
-    public fun com.google.protobuf.kotlin.DslList<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient, RecipientsProxy>.add(value: io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient) {
+    public fun com.google.protobuf.kotlin.DslList<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address, RecipientsProxy>.add(value: io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address) {
       _builder.addRecipients(value)
     }
     /**
-     * `repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;`
+     * `repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;`
      * @param value The recipients to add.
      */
     @kotlin.jvm.JvmSynthetic
     @kotlin.jvm.JvmName("plusAssignRecipients")
     @Suppress("NOTHING_TO_INLINE")
-    public inline operator fun com.google.protobuf.kotlin.DslList<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient, RecipientsProxy>.plusAssign(value: io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient) {
+    public inline operator fun com.google.protobuf.kotlin.DslList<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address, RecipientsProxy>.plusAssign(value: io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address) {
       add(value)
     }
     /**
-     * `repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;`
+     * `repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;`
      * @param values The recipients to add.
      */
     @kotlin.jvm.JvmSynthetic
     @kotlin.jvm.JvmName("addAllRecipients")
-    public fun com.google.protobuf.kotlin.DslList<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient, RecipientsProxy>.addAll(values: kotlin.collections.Iterable<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient>) {
+    public fun com.google.protobuf.kotlin.DslList<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address, RecipientsProxy>.addAll(values: kotlin.collections.Iterable<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address>) {
       _builder.addAllRecipients(values)
     }
     /**
-     * `repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;`
+     * `repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;`
      * @param values The recipients to add.
      */
     @kotlin.jvm.JvmSynthetic
     @kotlin.jvm.JvmName("plusAssignAllRecipients")
     @Suppress("NOTHING_TO_INLINE")
-    public inline operator fun com.google.protobuf.kotlin.DslList<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient, RecipientsProxy>.plusAssign(values: kotlin.collections.Iterable<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient>) {
+    public inline operator fun com.google.protobuf.kotlin.DslList<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address, RecipientsProxy>.plusAssign(values: kotlin.collections.Iterable<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address>) {
       addAll(values)
     }
     /**
-     * `repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;`
+     * `repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;`
      * @param index The index to set the value at.
      * @param value The recipients to set.
      */
     @kotlin.jvm.JvmSynthetic
     @kotlin.jvm.JvmName("setRecipients")
-    public operator fun com.google.protobuf.kotlin.DslList<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient, RecipientsProxy>.set(index: kotlin.Int, value: io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient) {
+    public operator fun com.google.protobuf.kotlin.DslList<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address, RecipientsProxy>.set(index: kotlin.Int, value: io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address) {
       _builder.setRecipients(index, value)
     }
     /**
-     * `repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;`
+     * `repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;`
      */
     @kotlin.jvm.JvmSynthetic
     @kotlin.jvm.JvmName("clearRecipients")
-    public fun com.google.protobuf.kotlin.DslList<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient, RecipientsProxy>.clear() {
+    public fun com.google.protobuf.kotlin.DslList<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address, RecipientsProxy>.clear() {
       _builder.clearRecipients()
     }
 
@@ -168,4 +192,7 @@ public object MessageKt {
 @kotlin.jvm.JvmSynthetic
 public inline fun io.github.pixelmonaskarion.protomms.proto.ProtoMms.Message.copy(block: io.github.pixelmonaskarion.protomms.proto.MessageKt.Dsl.() -> kotlin.Unit): io.github.pixelmonaskarion.protomms.proto.ProtoMms.Message =
   io.github.pixelmonaskarion.protomms.proto.MessageKt.Dsl._create(this.toBuilder()).apply { block() }._build()
+
+public val io.github.pixelmonaskarion.protomms.proto.ProtoMms.MessageOrBuilder.senderOrNull: io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address?
+  get() = if (hasSender()) getSender() else null
 

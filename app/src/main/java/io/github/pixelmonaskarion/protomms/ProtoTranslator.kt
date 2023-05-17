@@ -1,20 +1,16 @@
 package io.github.pixelmonaskarion.protomms
 
-import io.github.pixelmonaskarion.protomms.proto.ProtoMms
+import io.github.pixelmonaskarion.protomms.proto.ProtoMms.Message
 import java.io.ByteArrayOutputStream
-import java.nio.charset.Charset
+import java.util.Base64
 
-fun encodeMessage(messageText: String): String {
-    var messageBuilder = ProtoMms.Message.newBuilder()
-    messageBuilder.text = messageText
+fun encodeMessage(message: Message): String {
     var baos = ByteArrayOutputStream()
-    messageBuilder.build().writeTo(baos)
-    val protoString = String(baos.toByteArray(), Charset.defaultCharset());
-    return protoString
+    message.writeTo(baos)
+    return Base64.getEncoder().encodeToString(baos.toByteArray())
 }
 
-fun decodeMessage(protoString: String): String {
-    val messageProto = ProtoMms.Message.parseFrom(protoString.encodeToByteArray())
-    return messageProto.text
+fun decodeMessage(protoString: String): Message {
+    String(Base64.getDecoder().decode(protoString.toByteArray()));
+    return Message.parseFrom(protoString.encodeToByteArray())
 }
-

@@ -3,16 +3,19 @@ package io.github.pixelmonaskarion.protomms
 import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.Context
+import android.os.Build
 import android.provider.ContactsContract.Contacts
 import android.provider.Telephony
 import android.provider.Telephony.Mms
 import android.provider.Telephony.Sms
 import android.provider.Telephony.Threads
 import android.telephony.SmsManager
+import android.telephony.SubscriptionManager
+import android.telephony.TelephonyManager
 import android.util.Log
+import com.google.protobuf.InvalidProtocolBufferException
 import io.github.pixelmonaskarion.protomms.proto.ProtoMms.Message
-import io.github.pixelmonaskarion.protomms.proto.recipient
-import java.util.function.Consumer
+import java.lang.NullPointerException
 
 
 data class Thread(val id: Int, val recipients: String)
@@ -33,13 +36,31 @@ fun getInbox(): ArrayList<Message> {
     }
     var messages = ArrayList<Message>()
     val uri = Sms.Inbox.CONTENT_URI;
-    val cursor = contentResolver!!.query(uri, null, null, null, null)
-    // Iterate through the cursor and print the MMS messages.
+    val cursor = contentResolver!!.query(uri, null, null, null, Sms.Inbox.DATE + " ASC")
+    var currentMessage = ""
     while (cursor!!.moveToNext()) {
-        val id = cursor.getInt(cursor.getColumnIndex(Mms._ID))
         val address = cursor.getString(cursor.getColumnIndex(Sms.ADDRESS))
         val body = cursor.getString(cursor.getColumnIndex(Sms.BODY))
-        messages.add(Message(body, arrayOf(Recipient(address))))
+        if (body.startsWith("\uD83D\uDC0D")) {
+            currentMessage += body.substring(1)
+            continue
+        }
+        try {
+            var messageOrNull = decodeMessage(currentMessage + body)
+            if (messageOrNull != null) {
+                //sets the sender address to the expected value from the database to prevent stupid stuff with dubious messages
+                val finalMessage = messageOrNull.toBuilder()
+                    .setSender(messageOrNull.sender.toBuilder().setAddress(address).build()).build()
+                Log.d("PCS", finalMessage.toString())
+                Log.d("PCS", "Message from SMS $currentMessage$body")
+                messages.add(finalMessage)
+            }
+            currentMessage = ""
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.d("ProtoMMS", "Message $currentMessage$body failed")
+            currentMessage = ""
+        }
     }
     // Close the cursor.
     cursor.close()
@@ -86,7 +107,23 @@ fun getContactById(id: Long): Contact? {
     return null;
 }
 
-fun sendSMS(message: Message) {
+@SuppressLint("MissingPermission", "HardwareIds")
+fun getPhoneNumber(): String? {
+    try {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val manager =
+                context!!.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE) as SubscriptionManager
+            manager.getPhoneNumber(SubscriptionManager.DEFAULT_SUBSCRIPTION_ID)
+        } else {
+            val manager = context!!.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+            manager.line1Number
+        }
+    } catch (e: NullPointerException) {
+        return null
+    }
+}
+
+fun sendMessage(message: Message) {
     if (context == null) {
         Log.e("ProtoMMS", "No Context!")
         return;
@@ -104,8 +141,9 @@ fun sendSMS(message: Message) {
 
     val smsManager = SmsManager.getDefault()
     message.recipientsList.forEach { recipient ->
-        smsManager.divideMessage(message.text).forEach {text ->
-            smsManager.sendTextMessage(recipient.address, null, text, null, null)
+        val messageParts = smsManager.divideMessage(encodeMessage(message));
+        messageParts.forEachIndexed { i, text ->
+            smsManager.sendTextMessage(recipient.address, null, if (i == messageParts.size-1) text else "\uD83D\uDC0D"+text, null, null)
         }
     }
 }

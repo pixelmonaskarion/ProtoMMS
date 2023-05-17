@@ -1,19 +1,14 @@
 package io.github.pixelmonaskarion.protomms
 
 import android.Manifest
-import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
@@ -51,6 +46,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import io.github.pixelmonaskarion.protomms.proto.ProtoMms.Message
 import io.github.pixelmonaskarion.protomms.ui.theme.ProtoMMSTheme
 
 
@@ -104,7 +100,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         init(contentResolver, this)
-        checkPermissions(arrayListOf(Manifest.permission.READ_SMS, Manifest.permission.SEND_SMS, Manifest.permission.READ_CONTACTS), applicationContext)
+        checkPermissions(arrayListOf(Manifest.permission.READ_SMS, Manifest.permission.SEND_SMS, Manifest.permission.READ_CONTACTS, Manifest.permission.READ_PHONE_NUMBERS), applicationContext)
     }
 }
 
@@ -131,7 +127,7 @@ fun Conversations(threads: List<Thread>) {
                 if (it.pfp_uri != null) {
                 }
             }
-            ConversationPreview(title = title, lastMessage = Message("Chrissy", 1234, "I haven't quite figured this out yet :/"), icon = icon)
+            ConversationPreview(title = title, lastMessage = Message("I haven't quite figured this out yet :/", arrayOf(Address("Chrissy"))), icon = icon)
         }
     }
 }
@@ -156,7 +152,7 @@ fun ConversationPreview(title: String, lastMessage: Message, icon: Painter) {
                 style = MaterialTheme.typography.titleSmall,
             )
             Text(
-                text = lastMessage.author+": "+lastMessage.body,
+                text = lastMessage.sender.address+": "+lastMessage.text,
                 style = MaterialTheme.typography.bodyMedium,
             )
         }
@@ -169,7 +165,7 @@ fun PreviewConversationPreview() {
     ProtoMMSTheme {
         ConversationPreview(
             "Funny GC",
-            Message("Miles", 1234, "Chrissyyyy"),
+            Message("Chrissyyyy", arrayOf(Address("Miles"))),
             painterResource(R.drawable.profile_picture)
         )
     }
@@ -189,7 +185,7 @@ fun ConversationMessages(messages: ArrayList<Message>) {
 @Composable
 fun PreviewConversationMessages() {
     ProtoMMSTheme {
-        ConversationMessages(ArrayList(listOf(Message("Lexi 😡😡😡", 1234, "I love android 🤓🤓🤓"))))
+        ConversationMessages(ArrayList(listOf(Message("I love android 🤓🤓🤓", arrayOf(Address("Lexi 😡😡😡"))))))
     }
 }
 
@@ -225,8 +221,7 @@ fun MessageCard(msg: Message) {
                 }
             }
         ) {
-            val senderContact = getContactById(msg.sender_id)
-            val authorDisplayName = senderContact?.displayName ?: msg.author
+            val authorDisplayName = msg.sender.address
             Text(
                 text = authorDisplayName,
                 color = MaterialTheme.colorScheme.secondary,
@@ -246,7 +241,7 @@ fun MessageCard(msg: Message) {
                             .widthIn(min = 0.dp, max = screenWidth.dp - 100.dp)
                     ) {
                             Text(
-                                text = msg.body,
+                                text = msg.text,
                                 modifier = Modifier.padding(all = 4.dp),
                                 maxLines = if (expandedState > 0) Int.MAX_VALUE else 1,
                                 style = MaterialTheme.typography.bodyMedium,
@@ -264,7 +259,7 @@ fun MessageCard(msg: Message) {
                 Button(
                     onClick = {
                         if (expandedState == 2) {
-                            sendSMS(encodeMessage(messageInput), msg.author)
+                            sendMessage(Message(messageInput, arrayOf(Address(msg.sender.address))))
                             messageInput = ""
                         } else {
                             expandedState = 2
@@ -292,7 +287,7 @@ fun PreviewMessageCard() {
     ProtoMMSTheme {
         Surface {
             MessageCard(
-                msg = Message("Lexi", 1234, "Hey, take a look at Jetpack Compose, it's great!")
+                msg = Message("Hey, take a look at Jetpack Compose, it's great!", arrayOf(Address("Lexi")))
             )
         }
     }

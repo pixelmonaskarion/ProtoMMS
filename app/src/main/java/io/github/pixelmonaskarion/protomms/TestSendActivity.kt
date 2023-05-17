@@ -25,7 +25,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
-import io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient
 import io.github.pixelmonaskarion.protomms.ui.theme.ProtoMMSTheme
 
 class TestSendActivity : ComponentActivity() {
@@ -78,7 +77,7 @@ class TestSendActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         init(contentResolver, this)
-        checkPermissions(arrayListOf(Manifest.permission.READ_SMS, Manifest.permission.SEND_SMS, Manifest.permission.READ_CONTACTS), applicationContext)
+        checkPermissions(arrayListOf(Manifest.permission.READ_SMS, Manifest.permission.SEND_SMS, Manifest.permission.READ_CONTACTS, Manifest.permission.READ_PHONE_NUMBERS), applicationContext)
     }
 }
 
@@ -89,10 +88,11 @@ fun SendMessage() {
     var recipient by remember { mutableStateOf("") }
     var text by remember { mutableStateOf("") }
     Column() {
+        Text(text = "Your phone number: " + getPhoneNumber())
         TextField(value = recipient, onValueChange = {recipient = it}, label = {Text(text = "Recipient")}, modifier = Modifier.padding(5.dp))
         TextField(value = text, onValueChange = {text = it}, label = {Text(text = "Message")}, modifier = Modifier.padding(5.dp))
         Button(onClick = {
-                sendSMS(encodeMessage(text), recipient)
+            sendMessage(Message(text, arrayOf(Address(recipient))))
             text = ""
         }) {
             Text(text = "Send")

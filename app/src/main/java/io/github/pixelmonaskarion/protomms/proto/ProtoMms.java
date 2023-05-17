@@ -65,27 +65,42 @@ public final class ProtoMms {
         getMessageIdBytes();
 
     /**
-     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+     * <code>.io.github.pixelmonaskarion.protomms.proto.Address sender = 4;</code>
+     * @return Whether the sender field is set.
      */
-    java.util.List<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient> 
+    boolean hasSender();
+    /**
+     * <code>.io.github.pixelmonaskarion.protomms.proto.Address sender = 4;</code>
+     * @return The sender.
+     */
+    io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address getSender();
+    /**
+     * <code>.io.github.pixelmonaskarion.protomms.proto.Address sender = 4;</code>
+     */
+    io.github.pixelmonaskarion.protomms.proto.ProtoMms.AddressOrBuilder getSenderOrBuilder();
+
+    /**
+     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
+     */
+    java.util.List<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address> 
         getRecipientsList();
     /**
-     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
      */
-    io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient getRecipients(int index);
+    io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address getRecipients(int index);
     /**
-     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
      */
     int getRecipientsCount();
     /**
-     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
      */
-    java.util.List<? extends io.github.pixelmonaskarion.protomms.proto.ProtoMms.RecipientOrBuilder> 
+    java.util.List<? extends io.github.pixelmonaskarion.protomms.proto.ProtoMms.AddressOrBuilder> 
         getRecipientsOrBuilderList();
     /**
-     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
      */
-    io.github.pixelmonaskarion.protomms.proto.ProtoMms.RecipientOrBuilder getRecipientsOrBuilder(
+    io.github.pixelmonaskarion.protomms.proto.ProtoMms.AddressOrBuilder getRecipientsOrBuilder(
         int index);
   }
   /**
@@ -261,43 +276,69 @@ public final class ProtoMms {
       }
     }
 
-    public static final int RECIPIENTS_FIELD_NUMBER = 4;
-    @SuppressWarnings("serial")
-    private java.util.List<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient> recipients_;
+    public static final int SENDER_FIELD_NUMBER = 4;
+    private io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address sender_;
     /**
-     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+     * <code>.io.github.pixelmonaskarion.protomms.proto.Address sender = 4;</code>
+     * @return Whether the sender field is set.
      */
     @java.lang.Override
-    public java.util.List<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient> getRecipientsList() {
+    public boolean hasSender() {
+      return sender_ != null;
+    }
+    /**
+     * <code>.io.github.pixelmonaskarion.protomms.proto.Address sender = 4;</code>
+     * @return The sender.
+     */
+    @java.lang.Override
+    public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address getSender() {
+      return sender_ == null ? io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.getDefaultInstance() : sender_;
+    }
+    /**
+     * <code>.io.github.pixelmonaskarion.protomms.proto.Address sender = 4;</code>
+     */
+    @java.lang.Override
+    public io.github.pixelmonaskarion.protomms.proto.ProtoMms.AddressOrBuilder getSenderOrBuilder() {
+      return sender_ == null ? io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.getDefaultInstance() : sender_;
+    }
+
+    public static final int RECIPIENTS_FIELD_NUMBER = 5;
+    @SuppressWarnings("serial")
+    private java.util.List<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address> recipients_;
+    /**
+     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
+     */
+    @java.lang.Override
+    public java.util.List<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address> getRecipientsList() {
       return recipients_;
     }
     /**
-     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
      */
     @java.lang.Override
-    public java.util.List<? extends io.github.pixelmonaskarion.protomms.proto.ProtoMms.RecipientOrBuilder> 
+    public java.util.List<? extends io.github.pixelmonaskarion.protomms.proto.ProtoMms.AddressOrBuilder> 
         getRecipientsOrBuilderList() {
       return recipients_;
     }
     /**
-     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
      */
     @java.lang.Override
     public int getRecipientsCount() {
       return recipients_.size();
     }
     /**
-     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
      */
     @java.lang.Override
-    public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient getRecipients(int index) {
+    public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address getRecipients(int index) {
       return recipients_.get(index);
     }
     /**
-     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
      */
     @java.lang.Override
-    public io.github.pixelmonaskarion.protomms.proto.ProtoMms.RecipientOrBuilder getRecipientsOrBuilder(
+    public io.github.pixelmonaskarion.protomms.proto.ProtoMms.AddressOrBuilder getRecipientsOrBuilder(
         int index) {
       return recipients_.get(index);
     }
@@ -325,8 +366,11 @@ public final class ProtoMms {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(messageId_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, messageId_);
       }
+      if (sender_ != null) {
+        output.writeMessage(4, getSender());
+      }
       for (int i = 0; i < recipients_.size(); i++) {
-        output.writeMessage(4, recipients_.get(i));
+        output.writeMessage(5, recipients_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -346,9 +390,13 @@ public final class ProtoMms {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(messageId_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, messageId_);
       }
+      if (sender_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, getSender());
+      }
       for (int i = 0; i < recipients_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, recipients_.get(i));
+          .computeMessageSize(5, recipients_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -377,6 +425,11 @@ public final class ProtoMms {
       }
       if (!getMessageId()
           .equals(other.getMessageId())) return false;
+      if (hasSender() != other.hasSender()) return false;
+      if (hasSender()) {
+        if (!getSender()
+            .equals(other.getSender())) return false;
+      }
       if (!getRecipientsList()
           .equals(other.getRecipientsList())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
@@ -400,6 +453,10 @@ public final class ProtoMms {
       }
       hash = (37 * hash) + MESSAGE_ID_FIELD_NUMBER;
       hash = (53 * hash) + getMessageId().hashCode();
+      if (hasSender()) {
+        hash = (37 * hash) + SENDER_FIELD_NUMBER;
+        hash = (53 * hash) + getSender().hashCode();
+      }
       if (getRecipientsCount() > 0) {
         hash = (37 * hash) + RECIPIENTS_FIELD_NUMBER;
         hash = (53 * hash) + getRecipientsList().hashCode();
@@ -536,13 +593,18 @@ public final class ProtoMms {
         text_ = "";
         attachments_ = "";
         messageId_ = "";
+        sender_ = null;
+        if (senderBuilder_ != null) {
+          senderBuilder_.dispose();
+          senderBuilder_ = null;
+        }
         if (recipientsBuilder_ == null) {
           recipients_ = java.util.Collections.emptyList();
         } else {
           recipients_ = null;
           recipientsBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
 
@@ -577,9 +639,9 @@ public final class ProtoMms {
 
       private void buildPartialRepeatedFields(io.github.pixelmonaskarion.protomms.proto.ProtoMms.Message result) {
         if (recipientsBuilder_ == null) {
-          if (((bitField0_ & 0x00000008) != 0)) {
+          if (((bitField0_ & 0x00000010) != 0)) {
             recipients_ = java.util.Collections.unmodifiableList(recipients_);
-            bitField0_ = (bitField0_ & ~0x00000008);
+            bitField0_ = (bitField0_ & ~0x00000010);
           }
           result.recipients_ = recipients_;
         } else {
@@ -600,6 +662,11 @@ public final class ProtoMms {
         }
         if (((from_bitField0_ & 0x00000004) != 0)) {
           result.messageId_ = messageId_;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.sender_ = senderBuilder_ == null
+              ? sender_
+              : senderBuilder_.build();
         }
         result.bitField0_ |= to_bitField0_;
       }
@@ -631,11 +698,14 @@ public final class ProtoMms {
           bitField0_ |= 0x00000004;
           onChanged();
         }
+        if (other.hasSender()) {
+          mergeSender(other.getSender());
+        }
         if (recipientsBuilder_ == null) {
           if (!other.recipients_.isEmpty()) {
             if (recipients_.isEmpty()) {
               recipients_ = other.recipients_;
-              bitField0_ = (bitField0_ & ~0x00000008);
+              bitField0_ = (bitField0_ & ~0x00000010);
             } else {
               ensureRecipientsIsMutable();
               recipients_.addAll(other.recipients_);
@@ -648,7 +718,7 @@ public final class ProtoMms {
               recipientsBuilder_.dispose();
               recipientsBuilder_ = null;
               recipients_ = other.recipients_;
-              bitField0_ = (bitField0_ & ~0x00000008);
+              bitField0_ = (bitField0_ & ~0x00000010);
               recipientsBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getRecipientsFieldBuilder() : null;
@@ -699,9 +769,16 @@ public final class ProtoMms {
                 break;
               } // case 26
               case 34: {
-                io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient m =
+                input.readMessage(
+                    getSenderFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 34
+              case 42: {
+                io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address m =
                     input.readMessage(
-                        io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient.parser(),
+                        io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.parser(),
                         extensionRegistry);
                 if (recipientsBuilder_ == null) {
                   ensureRecipientsIsMutable();
@@ -710,7 +787,7 @@ public final class ProtoMms {
                   recipientsBuilder_.addMessage(m);
                 }
                 break;
-              } // case 34
+              } // case 42
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -958,22 +1035,141 @@ public final class ProtoMms {
         return this;
       }
 
-      private java.util.List<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient> recipients_ =
+      private io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address sender_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.Builder, io.github.pixelmonaskarion.protomms.proto.ProtoMms.AddressOrBuilder> senderBuilder_;
+      /**
+       * <code>.io.github.pixelmonaskarion.protomms.proto.Address sender = 4;</code>
+       * @return Whether the sender field is set.
+       */
+      public boolean hasSender() {
+        return ((bitField0_ & 0x00000008) != 0);
+      }
+      /**
+       * <code>.io.github.pixelmonaskarion.protomms.proto.Address sender = 4;</code>
+       * @return The sender.
+       */
+      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address getSender() {
+        if (senderBuilder_ == null) {
+          return sender_ == null ? io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.getDefaultInstance() : sender_;
+        } else {
+          return senderBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.io.github.pixelmonaskarion.protomms.proto.Address sender = 4;</code>
+       */
+      public Builder setSender(io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address value) {
+        if (senderBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          sender_ = value;
+        } else {
+          senderBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.io.github.pixelmonaskarion.protomms.proto.Address sender = 4;</code>
+       */
+      public Builder setSender(
+          io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.Builder builderForValue) {
+        if (senderBuilder_ == null) {
+          sender_ = builderForValue.build();
+        } else {
+          senderBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.io.github.pixelmonaskarion.protomms.proto.Address sender = 4;</code>
+       */
+      public Builder mergeSender(io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address value) {
+        if (senderBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) != 0) &&
+            sender_ != null &&
+            sender_ != io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.getDefaultInstance()) {
+            getSenderBuilder().mergeFrom(value);
+          } else {
+            sender_ = value;
+          }
+        } else {
+          senderBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.io.github.pixelmonaskarion.protomms.proto.Address sender = 4;</code>
+       */
+      public Builder clearSender() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        sender_ = null;
+        if (senderBuilder_ != null) {
+          senderBuilder_.dispose();
+          senderBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.io.github.pixelmonaskarion.protomms.proto.Address sender = 4;</code>
+       */
+      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.Builder getSenderBuilder() {
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return getSenderFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.io.github.pixelmonaskarion.protomms.proto.Address sender = 4;</code>
+       */
+      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.AddressOrBuilder getSenderOrBuilder() {
+        if (senderBuilder_ != null) {
+          return senderBuilder_.getMessageOrBuilder();
+        } else {
+          return sender_ == null ?
+              io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.getDefaultInstance() : sender_;
+        }
+      }
+      /**
+       * <code>.io.github.pixelmonaskarion.protomms.proto.Address sender = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.Builder, io.github.pixelmonaskarion.protomms.proto.ProtoMms.AddressOrBuilder> 
+          getSenderFieldBuilder() {
+        if (senderBuilder_ == null) {
+          senderBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.Builder, io.github.pixelmonaskarion.protomms.proto.ProtoMms.AddressOrBuilder>(
+                  getSender(),
+                  getParentForChildren(),
+                  isClean());
+          sender_ = null;
+        }
+        return senderBuilder_;
+      }
+
+      private java.util.List<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address> recipients_ =
         java.util.Collections.emptyList();
       private void ensureRecipientsIsMutable() {
-        if (!((bitField0_ & 0x00000008) != 0)) {
-          recipients_ = new java.util.ArrayList<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient>(recipients_);
-          bitField0_ |= 0x00000008;
+        if (!((bitField0_ & 0x00000010) != 0)) {
+          recipients_ = new java.util.ArrayList<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address>(recipients_);
+          bitField0_ |= 0x00000010;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient.Builder, io.github.pixelmonaskarion.protomms.proto.ProtoMms.RecipientOrBuilder> recipientsBuilder_;
+          io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.Builder, io.github.pixelmonaskarion.protomms.proto.ProtoMms.AddressOrBuilder> recipientsBuilder_;
 
       /**
-       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
        */
-      public java.util.List<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient> getRecipientsList() {
+      public java.util.List<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address> getRecipientsList() {
         if (recipientsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(recipients_);
         } else {
@@ -981,7 +1177,7 @@ public final class ProtoMms {
         }
       }
       /**
-       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
        */
       public int getRecipientsCount() {
         if (recipientsBuilder_ == null) {
@@ -991,9 +1187,9 @@ public final class ProtoMms {
         }
       }
       /**
-       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
        */
-      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient getRecipients(int index) {
+      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address getRecipients(int index) {
         if (recipientsBuilder_ == null) {
           return recipients_.get(index);
         } else {
@@ -1001,10 +1197,10 @@ public final class ProtoMms {
         }
       }
       /**
-       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
        */
       public Builder setRecipients(
-          int index, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient value) {
+          int index, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address value) {
         if (recipientsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1018,10 +1214,10 @@ public final class ProtoMms {
         return this;
       }
       /**
-       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
        */
       public Builder setRecipients(
-          int index, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient.Builder builderForValue) {
+          int index, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.Builder builderForValue) {
         if (recipientsBuilder_ == null) {
           ensureRecipientsIsMutable();
           recipients_.set(index, builderForValue.build());
@@ -1032,9 +1228,9 @@ public final class ProtoMms {
         return this;
       }
       /**
-       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
        */
-      public Builder addRecipients(io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient value) {
+      public Builder addRecipients(io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address value) {
         if (recipientsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1048,10 +1244,10 @@ public final class ProtoMms {
         return this;
       }
       /**
-       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
        */
       public Builder addRecipients(
-          int index, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient value) {
+          int index, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address value) {
         if (recipientsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1065,10 +1261,10 @@ public final class ProtoMms {
         return this;
       }
       /**
-       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
        */
       public Builder addRecipients(
-          io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient.Builder builderForValue) {
+          io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.Builder builderForValue) {
         if (recipientsBuilder_ == null) {
           ensureRecipientsIsMutable();
           recipients_.add(builderForValue.build());
@@ -1079,10 +1275,10 @@ public final class ProtoMms {
         return this;
       }
       /**
-       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
        */
       public Builder addRecipients(
-          int index, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient.Builder builderForValue) {
+          int index, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.Builder builderForValue) {
         if (recipientsBuilder_ == null) {
           ensureRecipientsIsMutable();
           recipients_.add(index, builderForValue.build());
@@ -1093,10 +1289,10 @@ public final class ProtoMms {
         return this;
       }
       /**
-       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
        */
       public Builder addAllRecipients(
-          java.lang.Iterable<? extends io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient> values) {
+          java.lang.Iterable<? extends io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address> values) {
         if (recipientsBuilder_ == null) {
           ensureRecipientsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -1108,12 +1304,12 @@ public final class ProtoMms {
         return this;
       }
       /**
-       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
        */
       public Builder clearRecipients() {
         if (recipientsBuilder_ == null) {
           recipients_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000008);
+          bitField0_ = (bitField0_ & ~0x00000010);
           onChanged();
         } else {
           recipientsBuilder_.clear();
@@ -1121,7 +1317,7 @@ public final class ProtoMms {
         return this;
       }
       /**
-       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
        */
       public Builder removeRecipients(int index) {
         if (recipientsBuilder_ == null) {
@@ -1134,16 +1330,16 @@ public final class ProtoMms {
         return this;
       }
       /**
-       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
        */
-      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient.Builder getRecipientsBuilder(
+      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.Builder getRecipientsBuilder(
           int index) {
         return getRecipientsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
        */
-      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.RecipientOrBuilder getRecipientsOrBuilder(
+      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.AddressOrBuilder getRecipientsOrBuilder(
           int index) {
         if (recipientsBuilder_ == null) {
           return recipients_.get(index);  } else {
@@ -1151,9 +1347,9 @@ public final class ProtoMms {
         }
       }
       /**
-       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
        */
-      public java.util.List<? extends io.github.pixelmonaskarion.protomms.proto.ProtoMms.RecipientOrBuilder> 
+      public java.util.List<? extends io.github.pixelmonaskarion.protomms.proto.ProtoMms.AddressOrBuilder> 
            getRecipientsOrBuilderList() {
         if (recipientsBuilder_ != null) {
           return recipientsBuilder_.getMessageOrBuilderList();
@@ -1162,35 +1358,35 @@ public final class ProtoMms {
         }
       }
       /**
-       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
        */
-      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient.Builder addRecipientsBuilder() {
+      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.Builder addRecipientsBuilder() {
         return getRecipientsFieldBuilder().addBuilder(
-            io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient.getDefaultInstance());
+            io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.getDefaultInstance());
       }
       /**
-       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
        */
-      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient.Builder addRecipientsBuilder(
+      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.Builder addRecipientsBuilder(
           int index) {
         return getRecipientsFieldBuilder().addBuilder(
-            index, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient.getDefaultInstance());
+            index, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.getDefaultInstance());
       }
       /**
-       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Address recipients = 5;</code>
        */
-      public java.util.List<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient.Builder> 
+      public java.util.List<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.Builder> 
            getRecipientsBuilderList() {
         return getRecipientsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient.Builder, io.github.pixelmonaskarion.protomms.proto.ProtoMms.RecipientOrBuilder> 
+          io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.Builder, io.github.pixelmonaskarion.protomms.proto.ProtoMms.AddressOrBuilder> 
           getRecipientsFieldBuilder() {
         if (recipientsBuilder_ == null) {
           recipientsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient.Builder, io.github.pixelmonaskarion.protomms.proto.ProtoMms.RecipientOrBuilder>(
+              io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.Builder, io.github.pixelmonaskarion.protomms.proto.ProtoMms.AddressOrBuilder>(
                   recipients_,
-                  ((bitField0_ & 0x00000008) != 0),
+                  ((bitField0_ & 0x00000010) != 0),
                   getParentForChildren(),
                   isClean());
           recipients_ = null;
@@ -1261,8 +1457,8 @@ public final class ProtoMms {
 
   }
 
-  public interface RecipientOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:io.github.pixelmonaskarion.protomms.proto.Recipient)
+  public interface AddressOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:io.github.pixelmonaskarion.protomms.proto.Address)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -1278,18 +1474,18 @@ public final class ProtoMms {
         getAddressBytes();
   }
   /**
-   * Protobuf type {@code io.github.pixelmonaskarion.protomms.proto.Recipient}
+   * Protobuf type {@code io.github.pixelmonaskarion.protomms.proto.Address}
    */
-  public static final class Recipient extends
+  public static final class Address extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:io.github.pixelmonaskarion.protomms.proto.Recipient)
-      RecipientOrBuilder {
+      // @@protoc_insertion_point(message_implements:io.github.pixelmonaskarion.protomms.proto.Address)
+      AddressOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use Recipient.newBuilder() to construct.
-    private Recipient(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use Address.newBuilder() to construct.
+    private Address(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private Recipient() {
+    private Address() {
       address_ = "";
     }
 
@@ -1297,20 +1493,20 @@ public final class ProtoMms {
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new Recipient();
+      return new Address();
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return io.github.pixelmonaskarion.protomms.proto.ProtoMms.internal_static_io_github_pixelmonaskarion_protomms_proto_Recipient_descriptor;
+      return io.github.pixelmonaskarion.protomms.proto.ProtoMms.internal_static_io_github_pixelmonaskarion_protomms_proto_Address_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return io.github.pixelmonaskarion.protomms.proto.ProtoMms.internal_static_io_github_pixelmonaskarion_protomms_proto_Recipient_fieldAccessorTable
+      return io.github.pixelmonaskarion.protomms.proto.ProtoMms.internal_static_io_github_pixelmonaskarion_protomms_proto_Address_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient.class, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient.Builder.class);
+              io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.class, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.Builder.class);
     }
 
     public static final int ADDRESS_FIELD_NUMBER = 1;
@@ -1391,10 +1587,10 @@ public final class ProtoMms {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient)) {
+      if (!(obj instanceof io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address)) {
         return super.equals(obj);
       }
-      io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient other = (io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient) obj;
+      io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address other = (io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address) obj;
 
       if (!getAddress()
           .equals(other.getAddress())) return false;
@@ -1416,69 +1612,69 @@ public final class ProtoMms {
       return hash;
     }
 
-    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient parseFrom(
+    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient parseFrom(
+    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient parseFrom(
+    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient parseFrom(
+    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient parseFrom(byte[] data)
+    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient parseFrom(
+    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient parseFrom(java.io.InputStream input)
+    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient parseFrom(
+    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient parseDelimitedFrom(java.io.InputStream input)
+    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient parseDelimitedFrom(
+    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient parseFrom(
+    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient parseFrom(
+    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1491,7 +1687,7 @@ public final class ProtoMms {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient prototype) {
+    public static Builder newBuilder(io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -1507,26 +1703,26 @@ public final class ProtoMms {
       return builder;
     }
     /**
-     * Protobuf type {@code io.github.pixelmonaskarion.protomms.proto.Recipient}
+     * Protobuf type {@code io.github.pixelmonaskarion.protomms.proto.Address}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:io.github.pixelmonaskarion.protomms.proto.Recipient)
-        io.github.pixelmonaskarion.protomms.proto.ProtoMms.RecipientOrBuilder {
+        // @@protoc_insertion_point(builder_implements:io.github.pixelmonaskarion.protomms.proto.Address)
+        io.github.pixelmonaskarion.protomms.proto.ProtoMms.AddressOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return io.github.pixelmonaskarion.protomms.proto.ProtoMms.internal_static_io_github_pixelmonaskarion_protomms_proto_Recipient_descriptor;
+        return io.github.pixelmonaskarion.protomms.proto.ProtoMms.internal_static_io_github_pixelmonaskarion_protomms_proto_Address_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return io.github.pixelmonaskarion.protomms.proto.ProtoMms.internal_static_io_github_pixelmonaskarion_protomms_proto_Recipient_fieldAccessorTable
+        return io.github.pixelmonaskarion.protomms.proto.ProtoMms.internal_static_io_github_pixelmonaskarion_protomms_proto_Address_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient.class, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient.Builder.class);
+                io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.class, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.Builder.class);
       }
 
-      // Construct using io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient.newBuilder()
+      // Construct using io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.newBuilder()
       private Builder() {
 
       }
@@ -1547,17 +1743,17 @@ public final class ProtoMms {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return io.github.pixelmonaskarion.protomms.proto.ProtoMms.internal_static_io_github_pixelmonaskarion_protomms_proto_Recipient_descriptor;
+        return io.github.pixelmonaskarion.protomms.proto.ProtoMms.internal_static_io_github_pixelmonaskarion_protomms_proto_Address_descriptor;
       }
 
       @java.lang.Override
-      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient getDefaultInstanceForType() {
-        return io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient.getDefaultInstance();
+      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address getDefaultInstanceForType() {
+        return io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.getDefaultInstance();
       }
 
       @java.lang.Override
-      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient build() {
-        io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient result = buildPartial();
+      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address build() {
+        io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -1565,14 +1761,14 @@ public final class ProtoMms {
       }
 
       @java.lang.Override
-      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient buildPartial() {
-        io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient result = new io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient(this);
+      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address buildPartial() {
+        io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address result = new io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address(this);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartial0(io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient result) {
+      private void buildPartial0(io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.address_ = address_;
@@ -1581,16 +1777,16 @@ public final class ProtoMms {
 
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient) {
-          return mergeFrom((io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient)other);
+        if (other instanceof io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address) {
+          return mergeFrom((io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient other) {
-        if (other == io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient.getDefaultInstance()) return this;
+      public Builder mergeFrom(io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address other) {
+        if (other == io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address.getDefaultInstance()) return this;
         if (!other.getAddress().isEmpty()) {
           address_ = other.address_;
           bitField0_ |= 0x00000001;
@@ -1728,23 +1924,23 @@ public final class ProtoMms {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:io.github.pixelmonaskarion.protomms.proto.Recipient)
+      // @@protoc_insertion_point(builder_scope:io.github.pixelmonaskarion.protomms.proto.Address)
     }
 
-    // @@protoc_insertion_point(class_scope:io.github.pixelmonaskarion.protomms.proto.Recipient)
-    private static final io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:io.github.pixelmonaskarion.protomms.proto.Address)
+    private static final io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient();
+      DEFAULT_INSTANCE = new io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address();
     }
 
-    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient getDefaultInstance() {
+    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<Recipient>
-        PARSER = new com.google.protobuf.AbstractParser<Recipient>() {
+    private static final com.google.protobuf.Parser<Address>
+        PARSER = new com.google.protobuf.AbstractParser<Address>() {
       @java.lang.Override
-      public Recipient parsePartialFrom(
+      public Address parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1763,17 +1959,17 @@ public final class ProtoMms {
       }
     };
 
-    public static com.google.protobuf.Parser<Recipient> parser() {
+    public static com.google.protobuf.Parser<Address> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<Recipient> getParserForType() {
+    public com.google.protobuf.Parser<Address> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient getDefaultInstanceForType() {
+    public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1785,10 +1981,10 @@ public final class ProtoMms {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_io_github_pixelmonaskarion_protomms_proto_Message_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_io_github_pixelmonaskarion_protomms_proto_Recipient_descriptor;
+    internal_static_io_github_pixelmonaskarion_protomms_proto_Address_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_io_github_pixelmonaskarion_protomms_proto_Recipient_fieldAccessorTable;
+      internal_static_io_github_pixelmonaskarion_protomms_proto_Address_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1800,35 +1996,31 @@ public final class ProtoMms {
     java.lang.String[] descriptorData = {
       "\n9io/github/pixelmonaskarion/protomms/pr" +
       "oto/proto_mms.proto\022)io.github.pixelmona" +
-      "skarion.protomms.proto\032\033google/protobuf/" +
-      "empty.proto\"\255\001\n\007Message\022\021\n\004text\030\001 \001(\tH\000\210" +
-      "\001\001\022\030\n\013attachments\030\002 \001(\tH\001\210\001\001\022\022\n\nmessage_" +
-      "id\030\003 \001(\t\022H\n\nrecipients\030\004 \003(\01324.io.github" +
-      ".pixelmonaskarion.protomms.proto.Recipie" +
-      "ntB\007\n\005_textB\016\n\014_attachments\"\034\n\tRecipient" +
-      "\022\017\n\007address\030\001 \001(\t2l\n\017ProtoMMSService\022Y\n\013" +
-      "SendMessage\0222.io.github.pixelmonaskarion" +
-      ".protomms.proto.Message\032\026.google.protobu" +
-      "f.Emptyb\006proto3"
+      "skarion.protomms.proto\"\357\001\n\007Message\022\021\n\004te" +
+      "xt\030\001 \001(\tH\000\210\001\001\022\030\n\013attachments\030\002 \001(\tH\001\210\001\001\022" +
+      "\022\n\nmessage_id\030\003 \001(\t\022B\n\006sender\030\004 \001(\01322.io" +
+      ".github.pixelmonaskarion.protomms.proto." +
+      "Address\022F\n\nrecipients\030\005 \003(\01322.io.github." +
+      "pixelmonaskarion.protomms.proto.AddressB" +
+      "\007\n\005_textB\016\n\014_attachments\"\032\n\007Address\022\017\n\007a" +
+      "ddress\030\001 \001(\tb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.EmptyProto.getDescriptor(),
         });
     internal_static_io_github_pixelmonaskarion_protomms_proto_Message_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_io_github_pixelmonaskarion_protomms_proto_Message_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_io_github_pixelmonaskarion_protomms_proto_Message_descriptor,
-        new java.lang.String[] { "Text", "Attachments", "MessageId", "Recipients", "Text", "Attachments", });
-    internal_static_io_github_pixelmonaskarion_protomms_proto_Recipient_descriptor =
+        new java.lang.String[] { "Text", "Attachments", "MessageId", "Sender", "Recipients", "Text", "Attachments", });
+    internal_static_io_github_pixelmonaskarion_protomms_proto_Address_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_io_github_pixelmonaskarion_protomms_proto_Recipient_fieldAccessorTable = new
+    internal_static_io_github_pixelmonaskarion_protomms_proto_Address_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_io_github_pixelmonaskarion_protomms_proto_Recipient_descriptor,
+        internal_static_io_github_pixelmonaskarion_protomms_proto_Address_descriptor,
         new java.lang.String[] { "Address", });
-    com.google.protobuf.EmptyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)
