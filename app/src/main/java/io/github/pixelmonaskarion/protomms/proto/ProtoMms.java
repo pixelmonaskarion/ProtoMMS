@@ -53,10 +53,16 @@ public final class ProtoMms {
         getAttachmentsBytes();
 
     /**
-     * <code>int32 message_id = 3;</code>
+     * <code>string message_id = 3;</code>
      * @return The messageId.
      */
-    int getMessageId();
+    java.lang.String getMessageId();
+    /**
+     * <code>string message_id = 3;</code>
+     * @return The bytes for messageId.
+     */
+    com.google.protobuf.ByteString
+        getMessageIdBytes();
 
     /**
      * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Recipient recipients = 4;</code>
@@ -97,6 +103,7 @@ public final class ProtoMms {
     private Message() {
       text_ = "";
       attachments_ = "";
+      messageId_ = "";
       recipients_ = java.util.Collections.emptyList();
     }
 
@@ -216,14 +223,42 @@ public final class ProtoMms {
     }
 
     public static final int MESSAGE_ID_FIELD_NUMBER = 3;
-    private int messageId_ = 0;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object messageId_ = "";
     /**
-     * <code>int32 message_id = 3;</code>
+     * <code>string message_id = 3;</code>
      * @return The messageId.
      */
     @java.lang.Override
-    public int getMessageId() {
-      return messageId_;
+    public java.lang.String getMessageId() {
+      java.lang.Object ref = messageId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        messageId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string message_id = 3;</code>
+     * @return The bytes for messageId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getMessageIdBytes() {
+      java.lang.Object ref = messageId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        messageId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int RECIPIENTS_FIELD_NUMBER = 4;
@@ -287,8 +322,8 @@ public final class ProtoMms {
       if (((bitField0_ & 0x00000002) != 0)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, attachments_);
       }
-      if (messageId_ != 0) {
-        output.writeInt32(3, messageId_);
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(messageId_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, messageId_);
       }
       for (int i = 0; i < recipients_.size(); i++) {
         output.writeMessage(4, recipients_.get(i));
@@ -308,9 +343,8 @@ public final class ProtoMms {
       if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, attachments_);
       }
-      if (messageId_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, messageId_);
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(messageId_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, messageId_);
       }
       for (int i = 0; i < recipients_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
@@ -341,8 +375,8 @@ public final class ProtoMms {
         if (!getAttachments()
             .equals(other.getAttachments())) return false;
       }
-      if (getMessageId()
-          != other.getMessageId()) return false;
+      if (!getMessageId()
+          .equals(other.getMessageId())) return false;
       if (!getRecipientsList()
           .equals(other.getRecipientsList())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
@@ -365,7 +399,7 @@ public final class ProtoMms {
         hash = (53 * hash) + getAttachments().hashCode();
       }
       hash = (37 * hash) + MESSAGE_ID_FIELD_NUMBER;
-      hash = (53 * hash) + getMessageId();
+      hash = (53 * hash) + getMessageId().hashCode();
       if (getRecipientsCount() > 0) {
         hash = (37 * hash) + RECIPIENTS_FIELD_NUMBER;
         hash = (53 * hash) + getRecipientsList().hashCode();
@@ -501,7 +535,7 @@ public final class ProtoMms {
         bitField0_ = 0;
         text_ = "";
         attachments_ = "";
-        messageId_ = 0;
+        messageId_ = "";
         if (recipientsBuilder_ == null) {
           recipients_ = java.util.Collections.emptyList();
         } else {
@@ -592,8 +626,10 @@ public final class ProtoMms {
           bitField0_ |= 0x00000002;
           onChanged();
         }
-        if (other.getMessageId() != 0) {
-          setMessageId(other.getMessageId());
+        if (!other.getMessageId().isEmpty()) {
+          messageId_ = other.messageId_;
+          bitField0_ |= 0x00000004;
+          onChanged();
         }
         if (recipientsBuilder_ == null) {
           if (!other.recipients_.isEmpty()) {
@@ -657,11 +693,11 @@ public final class ProtoMms {
                 bitField0_ |= 0x00000002;
                 break;
               } // case 18
-              case 24: {
-                messageId_ = input.readInt32();
+              case 26: {
+                messageId_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000004;
                 break;
-              } // case 24
+              } // case 26
               case 34: {
                 io.github.pixelmonaskarion.protomms.proto.ProtoMms.Recipient m =
                     input.readMessage(
@@ -850,34 +886,74 @@ public final class ProtoMms {
         return this;
       }
 
-      private int messageId_ ;
+      private java.lang.Object messageId_ = "";
       /**
-       * <code>int32 message_id = 3;</code>
+       * <code>string message_id = 3;</code>
        * @return The messageId.
        */
-      @java.lang.Override
-      public int getMessageId() {
-        return messageId_;
+      public java.lang.String getMessageId() {
+        java.lang.Object ref = messageId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          messageId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>int32 message_id = 3;</code>
+       * <code>string message_id = 3;</code>
+       * @return The bytes for messageId.
+       */
+      public com.google.protobuf.ByteString
+          getMessageIdBytes() {
+        java.lang.Object ref = messageId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          messageId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string message_id = 3;</code>
        * @param value The messageId to set.
        * @return This builder for chaining.
        */
-      public Builder setMessageId(int value) {
-
+      public Builder setMessageId(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
         messageId_ = value;
         bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
       /**
-       * <code>int32 message_id = 3;</code>
+       * <code>string message_id = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearMessageId() {
+        messageId_ = getDefaultInstance().getMessageId();
         bitField0_ = (bitField0_ & ~0x00000004);
-        messageId_ = 0;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string message_id = 3;</code>
+       * @param value The bytes for messageId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMessageIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        messageId_ = value;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
@@ -1727,7 +1803,7 @@ public final class ProtoMms {
       "skarion.protomms.proto\032\033google/protobuf/" +
       "empty.proto\"\255\001\n\007Message\022\021\n\004text\030\001 \001(\tH\000\210" +
       "\001\001\022\030\n\013attachments\030\002 \001(\tH\001\210\001\001\022\022\n\nmessage_" +
-      "id\030\003 \001(\005\022H\n\nrecipients\030\004 \003(\01324.io.github" +
+      "id\030\003 \001(\t\022H\n\nrecipients\030\004 \003(\01324.io.github" +
       ".pixelmonaskarion.protomms.proto.Recipie" +
       "ntB\007\n\005_textB\016\n\014_attachments\"\034\n\tRecipient" +
       "\022\017\n\007address\030\001 \001(\t2l\n\017ProtoMMSService\022Y\n\013" +

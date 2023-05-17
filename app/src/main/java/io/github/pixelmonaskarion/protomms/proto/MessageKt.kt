@@ -76,9 +76,9 @@ public object MessageKt {
     }
 
     /**
-     * `int32 message_id = 3;`
+     * `string message_id = 3;`
      */
-    public var messageId: kotlin.Int
+    public var messageId: kotlin.String
       @JvmName("getMessageId")
       get() = _builder.getMessageId()
       @JvmName("setMessageId")
@@ -86,7 +86,7 @@ public object MessageKt {
         _builder.setMessageId(value)
       }
     /**
-     * `int32 message_id = 3;`
+     * `string message_id = 3;`
      */
     public fun clearMessageId() {
       _builder.clearMessageId()

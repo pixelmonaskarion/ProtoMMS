@@ -3,9 +3,6 @@ package io.github.pixelmonaskarion.protomms
 import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
-import android.os.Environment
 import android.provider.ContactsContract.Contacts
 import android.provider.Telephony
 import android.provider.Telephony.Mms
@@ -13,11 +10,11 @@ import android.provider.Telephony.Sms
 import android.provider.Telephony.Threads
 import android.telephony.SmsManager
 import android.util.Log
-import androidx.core.content.ContextCompat.startActivity
-import io.github.pixelmonaskarion.protomms.mms.pdu.PduHeaders
+import io.github.pixelmonaskarion.protomms.proto.ProtoMms.Message
+import io.github.pixelmonaskarion.protomms.proto.recipient
+import java.util.function.Consumer
 
 
-data class Message(val author: String, val sender_id: Long, val body: String)
 data class Thread(val id: Int, val recipients: String)
 data class Contact(val id: Long, val displayName: String, val pfp_uri: String?)
 
@@ -40,19 +37,9 @@ fun getInbox(): ArrayList<Message> {
     // Iterate through the cursor and print the MMS messages.
     while (cursor!!.moveToNext()) {
         val id = cursor.getInt(cursor.getColumnIndex(Mms._ID))
-        val addrUri = Mms.Addr.getAddrUriForMessage(id.toString());
-        val addrCursor = contentResolver!!.query(addrUri, null, null, null, null)
-        var address = "";
-        var senderId = 0L;
-        while (addrCursor!!.moveToNext()) {
-            val type = addrCursor.getInt(addrCursor.getColumnIndex(Mms.Addr.TYPE))
-            if (type == PduHeaders.FROM) {
-                address = addrCursor.getString(addrCursor.getColumnIndex(Mms.Addr.ADDRESS))
-                senderId = addrCursor.getLong(addrCursor.getColumnIndex(Mms.Addr.CONTACT_ID))
-            }
-        }
+        val address = cursor.getString(cursor.getColumnIndex(Sms.ADDRESS))
         val body = cursor.getString(cursor.getColumnIndex(Sms.BODY))
-        messages.add(Message(address, senderId, body))
+        messages.add(Message(body, arrayOf(Recipient(address))))
     }
     // Close the cursor.
     cursor.close()
@@ -99,7 +86,7 @@ fun getContactById(id: Long): Contact? {
     return null;
 }
 
-fun sendSMS(messageText: String, address: String) {
+fun sendSMS(message: Message) {
     if (context == null) {
         Log.e("ProtoMMS", "No Context!")
         return;
@@ -116,7 +103,9 @@ fun sendSMS(messageText: String, address: String) {
 //    startActivity(context!!, intent, null)
 
     val smsManager = SmsManager.getDefault()
-    smsManager.divideMessage(messageText).forEach {
-        smsManager.sendTextMessage(address, null, it, null, null)
+    message.recipientsList.forEach { recipient ->
+        smsManager.divideMessage(message.text).forEach {text ->
+            smsManager.sendTextMessage(recipient.address, null, text, null, null)
+        }
     }
 }
