@@ -36,21 +36,28 @@ public final class ProtoMms {
         getTextBytes();
 
     /**
-     * <code>optional string attachments = 2;</code>
-     * @return Whether the attachments field is set.
+     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
      */
-    boolean hasAttachments();
+    java.util.List<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment> 
+        getAttachmentsList();
     /**
-     * <code>optional string attachments = 2;</code>
-     * @return The attachments.
+     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
      */
-    java.lang.String getAttachments();
+    io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment getAttachments(int index);
     /**
-     * <code>optional string attachments = 2;</code>
-     * @return The bytes for attachments.
+     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
      */
-    com.google.protobuf.ByteString
-        getAttachmentsBytes();
+    int getAttachmentsCount();
+    /**
+     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
+     */
+    java.util.List<? extends io.github.pixelmonaskarion.protomms.proto.ProtoMms.AttachmentOrBuilder> 
+        getAttachmentsOrBuilderList();
+    /**
+     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
+     */
+    io.github.pixelmonaskarion.protomms.proto.ProtoMms.AttachmentOrBuilder getAttachmentsOrBuilder(
+        int index);
 
     /**
      * <code>string message_id = 3;</code>
@@ -117,7 +124,7 @@ public final class ProtoMms {
     }
     private Message() {
       text_ = "";
-      attachments_ = "";
+      attachments_ = java.util.Collections.emptyList();
       messageId_ = "";
       recipients_ = java.util.Collections.emptyList();
     }
@@ -192,49 +199,43 @@ public final class ProtoMms {
 
     public static final int ATTACHMENTS_FIELD_NUMBER = 2;
     @SuppressWarnings("serial")
-    private volatile java.lang.Object attachments_ = "";
+    private java.util.List<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment> attachments_;
     /**
-     * <code>optional string attachments = 2;</code>
-     * @return Whether the attachments field is set.
+     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
      */
     @java.lang.Override
-    public boolean hasAttachments() {
-      return ((bitField0_ & 0x00000002) != 0);
+    public java.util.List<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment> getAttachmentsList() {
+      return attachments_;
     }
     /**
-     * <code>optional string attachments = 2;</code>
-     * @return The attachments.
+     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
      */
     @java.lang.Override
-    public java.lang.String getAttachments() {
-      java.lang.Object ref = attachments_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        attachments_ = s;
-        return s;
-      }
+    public java.util.List<? extends io.github.pixelmonaskarion.protomms.proto.ProtoMms.AttachmentOrBuilder> 
+        getAttachmentsOrBuilderList() {
+      return attachments_;
     }
     /**
-     * <code>optional string attachments = 2;</code>
-     * @return The bytes for attachments.
+     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
      */
     @java.lang.Override
-    public com.google.protobuf.ByteString
-        getAttachmentsBytes() {
-      java.lang.Object ref = attachments_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        attachments_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public int getAttachmentsCount() {
+      return attachments_.size();
+    }
+    /**
+     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
+     */
+    @java.lang.Override
+    public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment getAttachments(int index) {
+      return attachments_.get(index);
+    }
+    /**
+     * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
+     */
+    @java.lang.Override
+    public io.github.pixelmonaskarion.protomms.proto.ProtoMms.AttachmentOrBuilder getAttachmentsOrBuilder(
+        int index) {
+      return attachments_.get(index);
     }
 
     public static final int MESSAGE_ID_FIELD_NUMBER = 3;
@@ -360,8 +361,8 @@ public final class ProtoMms {
       if (((bitField0_ & 0x00000001) != 0)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, text_);
       }
-      if (((bitField0_ & 0x00000002) != 0)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, attachments_);
+      for (int i = 0; i < attachments_.size(); i++) {
+        output.writeMessage(2, attachments_.get(i));
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(messageId_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, messageId_);
@@ -384,8 +385,9 @@ public final class ProtoMms {
       if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, text_);
       }
-      if (((bitField0_ & 0x00000002) != 0)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, attachments_);
+      for (int i = 0; i < attachments_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, attachments_.get(i));
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(messageId_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, messageId_);
@@ -418,11 +420,8 @@ public final class ProtoMms {
         if (!getText()
             .equals(other.getText())) return false;
       }
-      if (hasAttachments() != other.hasAttachments()) return false;
-      if (hasAttachments()) {
-        if (!getAttachments()
-            .equals(other.getAttachments())) return false;
-      }
+      if (!getAttachmentsList()
+          .equals(other.getAttachmentsList())) return false;
       if (!getMessageId()
           .equals(other.getMessageId())) return false;
       if (hasSender() != other.hasSender()) return false;
@@ -447,9 +446,9 @@ public final class ProtoMms {
         hash = (37 * hash) + TEXT_FIELD_NUMBER;
         hash = (53 * hash) + getText().hashCode();
       }
-      if (hasAttachments()) {
+      if (getAttachmentsCount() > 0) {
         hash = (37 * hash) + ATTACHMENTS_FIELD_NUMBER;
-        hash = (53 * hash) + getAttachments().hashCode();
+        hash = (53 * hash) + getAttachmentsList().hashCode();
       }
       hash = (37 * hash) + MESSAGE_ID_FIELD_NUMBER;
       hash = (53 * hash) + getMessageId().hashCode();
@@ -591,7 +590,13 @@ public final class ProtoMms {
         super.clear();
         bitField0_ = 0;
         text_ = "";
-        attachments_ = "";
+        if (attachmentsBuilder_ == null) {
+          attachments_ = java.util.Collections.emptyList();
+        } else {
+          attachments_ = null;
+          attachmentsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
         messageId_ = "";
         sender_ = null;
         if (senderBuilder_ != null) {
@@ -638,6 +643,15 @@ public final class ProtoMms {
       }
 
       private void buildPartialRepeatedFields(io.github.pixelmonaskarion.protomms.proto.ProtoMms.Message result) {
+        if (attachmentsBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0)) {
+            attachments_ = java.util.Collections.unmodifiableList(attachments_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.attachments_ = attachments_;
+        } else {
+          result.attachments_ = attachmentsBuilder_.build();
+        }
         if (recipientsBuilder_ == null) {
           if (((bitField0_ & 0x00000010) != 0)) {
             recipients_ = java.util.Collections.unmodifiableList(recipients_);
@@ -655,10 +669,6 @@ public final class ProtoMms {
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.text_ = text_;
           to_bitField0_ |= 0x00000001;
-        }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.attachments_ = attachments_;
-          to_bitField0_ |= 0x00000002;
         }
         if (((from_bitField0_ & 0x00000004) != 0)) {
           result.messageId_ = messageId_;
@@ -688,10 +698,31 @@ public final class ProtoMms {
           bitField0_ |= 0x00000001;
           onChanged();
         }
-        if (other.hasAttachments()) {
-          attachments_ = other.attachments_;
-          bitField0_ |= 0x00000002;
-          onChanged();
+        if (attachmentsBuilder_ == null) {
+          if (!other.attachments_.isEmpty()) {
+            if (attachments_.isEmpty()) {
+              attachments_ = other.attachments_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureAttachmentsIsMutable();
+              attachments_.addAll(other.attachments_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.attachments_.isEmpty()) {
+            if (attachmentsBuilder_.isEmpty()) {
+              attachmentsBuilder_.dispose();
+              attachmentsBuilder_ = null;
+              attachments_ = other.attachments_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              attachmentsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getAttachmentsFieldBuilder() : null;
+            } else {
+              attachmentsBuilder_.addAllMessages(other.attachments_);
+            }
+          }
         }
         if (!other.getMessageId().isEmpty()) {
           messageId_ = other.messageId_;
@@ -759,8 +790,16 @@ public final class ProtoMms {
                 break;
               } // case 10
               case 18: {
-                attachments_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000002;
+                io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment m =
+                    input.readMessage(
+                        io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment.parser(),
+                        extensionRegistry);
+                if (attachmentsBuilder_ == null) {
+                  ensureAttachmentsIsMutable();
+                  attachments_.add(m);
+                } else {
+                  attachmentsBuilder_.addMessage(m);
+                }
                 break;
               } // case 18
               case 26: {
@@ -884,83 +923,244 @@ public final class ProtoMms {
         return this;
       }
 
-      private java.lang.Object attachments_ = "";
-      /**
-       * <code>optional string attachments = 2;</code>
-       * @return Whether the attachments field is set.
-       */
-      public boolean hasAttachments() {
-        return ((bitField0_ & 0x00000002) != 0);
+      private java.util.List<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment> attachments_ =
+        java.util.Collections.emptyList();
+      private void ensureAttachmentsIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          attachments_ = new java.util.ArrayList<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment>(attachments_);
+          bitField0_ |= 0x00000002;
+         }
       }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment.Builder, io.github.pixelmonaskarion.protomms.proto.ProtoMms.AttachmentOrBuilder> attachmentsBuilder_;
+
       /**
-       * <code>optional string attachments = 2;</code>
-       * @return The attachments.
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
        */
-      public java.lang.String getAttachments() {
-        java.lang.Object ref = attachments_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          attachments_ = s;
-          return s;
+      public java.util.List<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment> getAttachmentsList() {
+        if (attachmentsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(attachments_);
         } else {
-          return (java.lang.String) ref;
+          return attachmentsBuilder_.getMessageList();
         }
       }
       /**
-       * <code>optional string attachments = 2;</code>
-       * @return The bytes for attachments.
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
        */
-      public com.google.protobuf.ByteString
-          getAttachmentsBytes() {
-        java.lang.Object ref = attachments_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          attachments_ = b;
-          return b;
+      public int getAttachmentsCount() {
+        if (attachmentsBuilder_ == null) {
+          return attachments_.size();
         } else {
-          return (com.google.protobuf.ByteString) ref;
+          return attachmentsBuilder_.getCount();
         }
       }
       /**
-       * <code>optional string attachments = 2;</code>
-       * @param value The attachments to set.
-       * @return This builder for chaining.
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
+       */
+      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment getAttachments(int index) {
+        if (attachmentsBuilder_ == null) {
+          return attachments_.get(index);
+        } else {
+          return attachmentsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
        */
       public Builder setAttachments(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        attachments_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
+          int index, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment value) {
+        if (attachmentsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureAttachmentsIsMutable();
+          attachments_.set(index, value);
+          onChanged();
+        } else {
+          attachmentsBuilder_.setMessage(index, value);
+        }
         return this;
       }
       /**
-       * <code>optional string attachments = 2;</code>
-       * @return This builder for chaining.
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
+       */
+      public Builder setAttachments(
+          int index, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment.Builder builderForValue) {
+        if (attachmentsBuilder_ == null) {
+          ensureAttachmentsIsMutable();
+          attachments_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          attachmentsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
+       */
+      public Builder addAttachments(io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment value) {
+        if (attachmentsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureAttachmentsIsMutable();
+          attachments_.add(value);
+          onChanged();
+        } else {
+          attachmentsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
+       */
+      public Builder addAttachments(
+          int index, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment value) {
+        if (attachmentsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureAttachmentsIsMutable();
+          attachments_.add(index, value);
+          onChanged();
+        } else {
+          attachmentsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
+       */
+      public Builder addAttachments(
+          io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment.Builder builderForValue) {
+        if (attachmentsBuilder_ == null) {
+          ensureAttachmentsIsMutable();
+          attachments_.add(builderForValue.build());
+          onChanged();
+        } else {
+          attachmentsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
+       */
+      public Builder addAttachments(
+          int index, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment.Builder builderForValue) {
+        if (attachmentsBuilder_ == null) {
+          ensureAttachmentsIsMutable();
+          attachments_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          attachmentsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
+       */
+      public Builder addAllAttachments(
+          java.lang.Iterable<? extends io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment> values) {
+        if (attachmentsBuilder_ == null) {
+          ensureAttachmentsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, attachments_);
+          onChanged();
+        } else {
+          attachmentsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
        */
       public Builder clearAttachments() {
-        attachments_ = getDefaultInstance().getAttachments();
-        bitField0_ = (bitField0_ & ~0x00000002);
-        onChanged();
+        if (attachmentsBuilder_ == null) {
+          attachments_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          attachmentsBuilder_.clear();
+        }
         return this;
       }
       /**
-       * <code>optional string attachments = 2;</code>
-       * @param value The bytes for attachments to set.
-       * @return This builder for chaining.
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
        */
-      public Builder setAttachmentsBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        attachments_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
+      public Builder removeAttachments(int index) {
+        if (attachmentsBuilder_ == null) {
+          ensureAttachmentsIsMutable();
+          attachments_.remove(index);
+          onChanged();
+        } else {
+          attachmentsBuilder_.remove(index);
+        }
         return this;
+      }
+      /**
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
+       */
+      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment.Builder getAttachmentsBuilder(
+          int index) {
+        return getAttachmentsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
+       */
+      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.AttachmentOrBuilder getAttachmentsOrBuilder(
+          int index) {
+        if (attachmentsBuilder_ == null) {
+          return attachments_.get(index);  } else {
+          return attachmentsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
+       */
+      public java.util.List<? extends io.github.pixelmonaskarion.protomms.proto.ProtoMms.AttachmentOrBuilder> 
+           getAttachmentsOrBuilderList() {
+        if (attachmentsBuilder_ != null) {
+          return attachmentsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(attachments_);
+        }
+      }
+      /**
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
+       */
+      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment.Builder addAttachmentsBuilder() {
+        return getAttachmentsFieldBuilder().addBuilder(
+            io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
+       */
+      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment.Builder addAttachmentsBuilder(
+          int index) {
+        return getAttachmentsFieldBuilder().addBuilder(
+            index, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;</code>
+       */
+      public java.util.List<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment.Builder> 
+           getAttachmentsBuilderList() {
+        return getAttachmentsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment.Builder, io.github.pixelmonaskarion.protomms.proto.ProtoMms.AttachmentOrBuilder> 
+          getAttachmentsFieldBuilder() {
+        if (attachmentsBuilder_ == null) {
+          attachmentsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment.Builder, io.github.pixelmonaskarion.protomms.proto.ProtoMms.AttachmentOrBuilder>(
+                  attachments_,
+                  ((bitField0_ & 0x00000002) != 0),
+                  getParentForChildren(),
+                  isClean());
+          attachments_ = null;
+        }
+        return attachmentsBuilder_;
       }
 
       private java.lang.Object messageId_ = "";
@@ -1975,6 +2175,820 @@ public final class ProtoMms {
 
   }
 
+  public interface AttachmentOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:io.github.pixelmonaskarion.protomms.proto.Attachment)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string data = 1;</code>
+     * @return The data.
+     */
+    java.lang.String getData();
+    /**
+     * <code>string data = 1;</code>
+     * @return The bytes for data.
+     */
+    com.google.protobuf.ByteString
+        getDataBytes();
+
+    /**
+     * <code>string mime_type = 2;</code>
+     * @return The mimeType.
+     */
+    java.lang.String getMimeType();
+    /**
+     * <code>string mime_type = 2;</code>
+     * @return The bytes for mimeType.
+     */
+    com.google.protobuf.ByteString
+        getMimeTypeBytes();
+
+    /**
+     * <code>string file_name = 3;</code>
+     * @return The fileName.
+     */
+    java.lang.String getFileName();
+    /**
+     * <code>string file_name = 3;</code>
+     * @return The bytes for fileName.
+     */
+    com.google.protobuf.ByteString
+        getFileNameBytes();
+  }
+  /**
+   * Protobuf type {@code io.github.pixelmonaskarion.protomms.proto.Attachment}
+   */
+  public static final class Attachment extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:io.github.pixelmonaskarion.protomms.proto.Attachment)
+      AttachmentOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Attachment.newBuilder() to construct.
+    private Attachment(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Attachment() {
+      data_ = "";
+      mimeType_ = "";
+      fileName_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Attachment();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return io.github.pixelmonaskarion.protomms.proto.ProtoMms.internal_static_io_github_pixelmonaskarion_protomms_proto_Attachment_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return io.github.pixelmonaskarion.protomms.proto.ProtoMms.internal_static_io_github_pixelmonaskarion_protomms_proto_Attachment_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment.class, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment.Builder.class);
+    }
+
+    public static final int DATA_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object data_ = "";
+    /**
+     * <code>string data = 1;</code>
+     * @return The data.
+     */
+    @java.lang.Override
+    public java.lang.String getData() {
+      java.lang.Object ref = data_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        data_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string data = 1;</code>
+     * @return The bytes for data.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getDataBytes() {
+      java.lang.Object ref = data_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        data_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int MIME_TYPE_FIELD_NUMBER = 2;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object mimeType_ = "";
+    /**
+     * <code>string mime_type = 2;</code>
+     * @return The mimeType.
+     */
+    @java.lang.Override
+    public java.lang.String getMimeType() {
+      java.lang.Object ref = mimeType_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        mimeType_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string mime_type = 2;</code>
+     * @return The bytes for mimeType.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getMimeTypeBytes() {
+      java.lang.Object ref = mimeType_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        mimeType_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int FILE_NAME_FIELD_NUMBER = 3;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object fileName_ = "";
+    /**
+     * <code>string file_name = 3;</code>
+     * @return The fileName.
+     */
+    @java.lang.Override
+    public java.lang.String getFileName() {
+      java.lang.Object ref = fileName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        fileName_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string file_name = 3;</code>
+     * @return The bytes for fileName.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getFileNameBytes() {
+      java.lang.Object ref = fileName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        fileName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(data_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, data_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(mimeType_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, mimeType_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(fileName_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, fileName_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(data_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, data_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(mimeType_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, mimeType_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(fileName_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, fileName_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment)) {
+        return super.equals(obj);
+      }
+      io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment other = (io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment) obj;
+
+      if (!getData()
+          .equals(other.getData())) return false;
+      if (!getMimeType()
+          .equals(other.getMimeType())) return false;
+      if (!getFileName()
+          .equals(other.getFileName())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + DATA_FIELD_NUMBER;
+      hash = (53 * hash) + getData().hashCode();
+      hash = (37 * hash) + MIME_TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + getMimeType().hashCode();
+      hash = (37 * hash) + FILE_NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getFileName().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code io.github.pixelmonaskarion.protomms.proto.Attachment}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:io.github.pixelmonaskarion.protomms.proto.Attachment)
+        io.github.pixelmonaskarion.protomms.proto.ProtoMms.AttachmentOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return io.github.pixelmonaskarion.protomms.proto.ProtoMms.internal_static_io_github_pixelmonaskarion_protomms_proto_Attachment_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return io.github.pixelmonaskarion.protomms.proto.ProtoMms.internal_static_io_github_pixelmonaskarion_protomms_proto_Attachment_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment.class, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment.Builder.class);
+      }
+
+      // Construct using io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        data_ = "";
+        mimeType_ = "";
+        fileName_ = "";
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return io.github.pixelmonaskarion.protomms.proto.ProtoMms.internal_static_io_github_pixelmonaskarion_protomms_proto_Attachment_descriptor;
+      }
+
+      @java.lang.Override
+      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment getDefaultInstanceForType() {
+        return io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment build() {
+        io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment buildPartial() {
+        io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment result = new io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.data_ = data_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.mimeType_ = mimeType_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.fileName_ = fileName_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment) {
+          return mergeFrom((io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment other) {
+        if (other == io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment.getDefaultInstance()) return this;
+        if (!other.getData().isEmpty()) {
+          data_ = other.data_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (!other.getMimeType().isEmpty()) {
+          mimeType_ = other.mimeType_;
+          bitField0_ |= 0x00000002;
+          onChanged();
+        }
+        if (!other.getFileName().isEmpty()) {
+          fileName_ = other.fileName_;
+          bitField0_ |= 0x00000004;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                data_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 18: {
+                mimeType_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
+              case 26: {
+                fileName_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object data_ = "";
+      /**
+       * <code>string data = 1;</code>
+       * @return The data.
+       */
+      public java.lang.String getData() {
+        java.lang.Object ref = data_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          data_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string data = 1;</code>
+       * @return The bytes for data.
+       */
+      public com.google.protobuf.ByteString
+          getDataBytes() {
+        java.lang.Object ref = data_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          data_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string data = 1;</code>
+       * @param value The data to set.
+       * @return This builder for chaining.
+       */
+      public Builder setData(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        data_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string data = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearData() {
+        data_ = getDefaultInstance().getData();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string data = 1;</code>
+       * @param value The bytes for data to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDataBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        data_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object mimeType_ = "";
+      /**
+       * <code>string mime_type = 2;</code>
+       * @return The mimeType.
+       */
+      public java.lang.String getMimeType() {
+        java.lang.Object ref = mimeType_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          mimeType_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string mime_type = 2;</code>
+       * @return The bytes for mimeType.
+       */
+      public com.google.protobuf.ByteString
+          getMimeTypeBytes() {
+        java.lang.Object ref = mimeType_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          mimeType_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string mime_type = 2;</code>
+       * @param value The mimeType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMimeType(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        mimeType_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string mime_type = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMimeType() {
+        mimeType_ = getDefaultInstance().getMimeType();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string mime_type = 2;</code>
+       * @param value The bytes for mimeType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMimeTypeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        mimeType_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object fileName_ = "";
+      /**
+       * <code>string file_name = 3;</code>
+       * @return The fileName.
+       */
+      public java.lang.String getFileName() {
+        java.lang.Object ref = fileName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          fileName_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string file_name = 3;</code>
+       * @return The bytes for fileName.
+       */
+      public com.google.protobuf.ByteString
+          getFileNameBytes() {
+        java.lang.Object ref = fileName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          fileName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string file_name = 3;</code>
+       * @param value The fileName to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFileName(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        fileName_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string file_name = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearFileName() {
+        fileName_ = getDefaultInstance().getFileName();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string file_name = 3;</code>
+       * @param value The bytes for fileName to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFileNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        fileName_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:io.github.pixelmonaskarion.protomms.proto.Attachment)
+    }
+
+    // @@protoc_insertion_point(class_scope:io.github.pixelmonaskarion.protomms.proto.Attachment)
+    private static final io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment();
+    }
+
+    public static io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Attachment>
+        PARSER = new com.google.protobuf.AbstractParser<Attachment>() {
+      @java.lang.Override
+      public Attachment parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<Attachment> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Attachment> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_io_github_pixelmonaskarion_protomms_proto_Message_descriptor;
   private static final 
@@ -1985,6 +2999,11 @@ public final class ProtoMms {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_io_github_pixelmonaskarion_protomms_proto_Address_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_io_github_pixelmonaskarion_protomms_proto_Attachment_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_io_github_pixelmonaskarion_protomms_proto_Attachment_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1996,14 +3015,16 @@ public final class ProtoMms {
     java.lang.String[] descriptorData = {
       "\n9io/github/pixelmonaskarion/protomms/pr" +
       "oto/proto_mms.proto\022)io.github.pixelmona" +
-      "skarion.protomms.proto\"\357\001\n\007Message\022\021\n\004te" +
-      "xt\030\001 \001(\tH\000\210\001\001\022\030\n\013attachments\030\002 \001(\tH\001\210\001\001\022" +
-      "\022\n\nmessage_id\030\003 \001(\t\022B\n\006sender\030\004 \001(\01322.io" +
-      ".github.pixelmonaskarion.protomms.proto." +
-      "Address\022F\n\nrecipients\030\005 \003(\01322.io.github." +
-      "pixelmonaskarion.protomms.proto.AddressB" +
-      "\007\n\005_textB\016\n\014_attachments\"\032\n\007Address\022\017\n\007a" +
-      "ddress\030\001 \001(\tb\006proto3"
+      "skarion.protomms.proto\"\221\002\n\007Message\022\021\n\004te" +
+      "xt\030\001 \001(\tH\000\210\001\001\022J\n\013attachments\030\002 \003(\01325.io." +
+      "github.pixelmonaskarion.protomms.proto.A" +
+      "ttachment\022\022\n\nmessage_id\030\003 \001(\t\022B\n\006sender\030" +
+      "\004 \001(\01322.io.github.pixelmonaskarion.proto" +
+      "mms.proto.Address\022F\n\nrecipients\030\005 \003(\01322." +
+      "io.github.pixelmonaskarion.protomms.prot" +
+      "o.AddressB\007\n\005_text\"\032\n\007Address\022\017\n\007address" +
+      "\030\001 \001(\t\"@\n\nAttachment\022\014\n\004data\030\001 \001(\t\022\021\n\tmi" +
+      "me_type\030\002 \001(\t\022\021\n\tfile_name\030\003 \001(\tb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2014,13 +3035,19 @@ public final class ProtoMms {
     internal_static_io_github_pixelmonaskarion_protomms_proto_Message_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_io_github_pixelmonaskarion_protomms_proto_Message_descriptor,
-        new java.lang.String[] { "Text", "Attachments", "MessageId", "Sender", "Recipients", "Text", "Attachments", });
+        new java.lang.String[] { "Text", "Attachments", "MessageId", "Sender", "Recipients", "Text", });
     internal_static_io_github_pixelmonaskarion_protomms_proto_Address_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_io_github_pixelmonaskarion_protomms_proto_Address_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_io_github_pixelmonaskarion_protomms_proto_Address_descriptor,
         new java.lang.String[] { "Address", });
+    internal_static_io_github_pixelmonaskarion_protomms_proto_Attachment_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_io_github_pixelmonaskarion_protomms_proto_Attachment_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_io_github_pixelmonaskarion_protomms_proto_Attachment_descriptor,
+        new java.lang.String[] { "Data", "MimeType", "FileName", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

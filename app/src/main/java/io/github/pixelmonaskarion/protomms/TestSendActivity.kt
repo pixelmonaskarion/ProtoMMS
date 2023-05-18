@@ -3,9 +3,11 @@ package io.github.pixelmonaskarion.protomms
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
@@ -25,6 +27,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import androidx.core.net.toFile
+import io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment
 import io.github.pixelmonaskarion.protomms.ui.theme.ProtoMMSTheme
 
 class TestSendActivity : ComponentActivity() {
@@ -87,12 +91,30 @@ class TestSendActivity : ComponentActivity() {
 fun SendMessage() {
     var recipient by remember { mutableStateOf("") }
     var text by remember { mutableStateOf("") }
+    var fileUri: Uri? by remember { mutableStateOf(null) }
+    val pickPictureLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { imageUri ->
+        if (imageUri != null) {
+            fileUri = imageUri
+        }
+    }
+
     Column() {
         Text(text = "Your phone number: " + getPhoneNumber())
         TextField(value = recipient, onValueChange = {recipient = it}, label = {Text(text = "Recipient")}, modifier = Modifier.padding(5.dp))
         TextField(value = text, onValueChange = {text = it}, label = {Text(text = "Message")}, modifier = Modifier.padding(5.dp))
         Button(onClick = {
-            sendMessage(Message(text, arrayOf(Address(recipient))))
+            pickPictureLauncher.launch("*/*")
+        }) {
+            Text(text = "Pick File")
+        }
+        Button(onClick = {
+            var attachments: Array<Attachment> = arrayOf();
+            if (fileUri != null) {
+                attachments = arrayOf(Attachment(fileUri!!))
+            }
+            sendMessage(Message(text, arrayOf(Address(recipient)), attachments))
             text = ""
         }) {
             Text(text = "Send")

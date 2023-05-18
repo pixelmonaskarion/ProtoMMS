@@ -11,6 +11,5 @@ fun encodeMessage(message: Message): String {
 }
 
 fun decodeMessage(protoString: String): Message {
-    String(Base64.getDecoder().decode(protoString.toByteArray()));
-    return Message.parseFrom(protoString.encodeToByteArray())
+    return Message.parseFrom(Base64.getDecoder().decode(protoString.toByteArray()))
 }

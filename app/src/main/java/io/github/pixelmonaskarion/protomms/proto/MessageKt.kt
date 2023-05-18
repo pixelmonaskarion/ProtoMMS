@@ -52,28 +52,76 @@ public object MessageKt {
     }
 
     /**
-     * `optional string attachments = 2;`
+     * An uninstantiable, behaviorless type to represent the field in
+     * generics.
      */
-    public var attachments: kotlin.String
-      @JvmName("getAttachments")
-      get() = _builder.getAttachments()
-      @JvmName("setAttachments")
-      set(value) {
-        _builder.setAttachments(value)
-      }
+    @kotlin.OptIn(com.google.protobuf.kotlin.OnlyForUseByGeneratedProtoCode::class)
+    public class AttachmentsProxy private constructor() : com.google.protobuf.kotlin.DslProxy()
     /**
-     * `optional string attachments = 2;`
+     * `repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;`
      */
-    public fun clearAttachments() {
+     public val attachments: com.google.protobuf.kotlin.DslList<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment, AttachmentsProxy>
+      @kotlin.jvm.JvmSynthetic
+      get() = com.google.protobuf.kotlin.DslList(
+        _builder.getAttachmentsList()
+      )
+    /**
+     * `repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;`
+     * @param value The attachments to add.
+     */
+    @kotlin.jvm.JvmSynthetic
+    @kotlin.jvm.JvmName("addAttachments")
+    public fun com.google.protobuf.kotlin.DslList<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment, AttachmentsProxy>.add(value: io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment) {
+      _builder.addAttachments(value)
+    }
+    /**
+     * `repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;`
+     * @param value The attachments to add.
+     */
+    @kotlin.jvm.JvmSynthetic
+    @kotlin.jvm.JvmName("plusAssignAttachments")
+    @Suppress("NOTHING_TO_INLINE")
+    public inline operator fun com.google.protobuf.kotlin.DslList<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment, AttachmentsProxy>.plusAssign(value: io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment) {
+      add(value)
+    }
+    /**
+     * `repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;`
+     * @param values The attachments to add.
+     */
+    @kotlin.jvm.JvmSynthetic
+    @kotlin.jvm.JvmName("addAllAttachments")
+    public fun com.google.protobuf.kotlin.DslList<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment, AttachmentsProxy>.addAll(values: kotlin.collections.Iterable<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment>) {
+      _builder.addAllAttachments(values)
+    }
+    /**
+     * `repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;`
+     * @param values The attachments to add.
+     */
+    @kotlin.jvm.JvmSynthetic
+    @kotlin.jvm.JvmName("plusAssignAllAttachments")
+    @Suppress("NOTHING_TO_INLINE")
+    public inline operator fun com.google.protobuf.kotlin.DslList<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment, AttachmentsProxy>.plusAssign(values: kotlin.collections.Iterable<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment>) {
+      addAll(values)
+    }
+    /**
+     * `repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;`
+     * @param index The index to set the value at.
+     * @param value The attachments to set.
+     */
+    @kotlin.jvm.JvmSynthetic
+    @kotlin.jvm.JvmName("setAttachments")
+    public operator fun com.google.protobuf.kotlin.DslList<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment, AttachmentsProxy>.set(index: kotlin.Int, value: io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment) {
+      _builder.setAttachments(index, value)
+    }
+    /**
+     * `repeated .io.github.pixelmonaskarion.protomms.proto.Attachment attachments = 2;`
+     */
+    @kotlin.jvm.JvmSynthetic
+    @kotlin.jvm.JvmName("clearAttachments")
+    public fun com.google.protobuf.kotlin.DslList<io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment, AttachmentsProxy>.clear() {
       _builder.clearAttachments()
     }
-    /**
-     * `optional string attachments = 2;`
-     * @return Whether the attachments field is set.
-     */
-    public fun hasAttachments(): kotlin.Boolean {
-      return _builder.hasAttachments()
-    }
+
 
     /**
      * `string message_id = 3;`

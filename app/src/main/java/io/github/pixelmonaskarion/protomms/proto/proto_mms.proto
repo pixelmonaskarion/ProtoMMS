@@ -4,7 +4,7 @@ package io.github.pixelmonaskarion.protomms.proto;
 
 message Message {
   optional string text = 1;
-  optional string attachments = 2;
+  repeated Attachment attachments = 2;
   string message_id = 3;
   Address sender = 4;
   repeated Address recipients = 5;
@@ -14,6 +14,11 @@ message Address {
   string address = 1;
 }
 
+message Attachment {
+  string data = 1;
+  string mime_type = 2;
+  string file_name = 3;
+}
 //protoc -I=F:\chris\AndroidStudioProjects\ProtoMMS\app\src\main\java\ --java_out=F:\chris\AndroidStudioProjects\ProtoMMS\app\src\main\java\ --kotlin_out=F:\chris\AndroidStudioProjects\ProtoMMS\app\src\main\java\ F:\chris\AndroidStudioProjects\ProtoMMS\app\src\main\java\io\github\pixelmonaskarion\protomms\proto\proto_mms.proto
 
 //protoc -I=app\src\main\java\ --java_out=app\src\main\java\ --kotlin_out=app\src\main\java\ app\src\main\java\io\github\pixelmonaskarion\protomms\proto\proto_mms.proto

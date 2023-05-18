@@ -21,7 +21,7 @@ import java.lang.NullPointerException
 data class Thread(val id: Int, val recipients: String)
 data class Contact(val id: Long, val displayName: String, val pfp_uri: String?)
 
-private var contentResolver: ContentResolver? = null;
+var contentResolver: ContentResolver? = null;
 private var context: Context? = null;
 
 fun init(newContentResolver: ContentResolver, newContext: Context) {
@@ -57,8 +57,6 @@ fun getInbox(): ArrayList<Message> {
             }
             currentMessage = ""
         } catch (e: Exception) {
-            e.printStackTrace()
-            Log.d("ProtoMMS", "Message $currentMessage$body failed")
             currentMessage = ""
         }
     }
@@ -73,12 +71,12 @@ fun getThreads(): ArrayList<Thread> {
         return ArrayList()
     }
     var messages = ArrayList<Thread>()
-    val uri = Telephony.Threads.CONTENT_URI;
-    val cursor = contentResolver!!.query(uri, null, null, null, null)
+    val uri = Sms.Conversations.CONTENT_URI
+    val cursor = contentResolver!!.query(uri, null, null, null, Sms.Conversations.DEFAULT_SORT_ORDER)
     // Iterate through the cursor and print the MMS messages.
     while (cursor!!.moveToNext()) {
-        val id = cursor.getInt(cursor.getColumnIndex(Threads._ID))
-        val recipients = cursor.getString(cursor.getColumnIndex(Threads.RECIPIENT_IDS))
+        val id = cursor.getInt(cursor.getColumnIndex(Sms.Conversations._ID))
+        val recipients = cursor.getString(cursor.getColumnIndex(Sms.Conversations.ADDRESS))
         messages.add(Thread(id, recipients))
     }
     // Close the cursor.

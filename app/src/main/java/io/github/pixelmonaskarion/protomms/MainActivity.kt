@@ -58,7 +58,7 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                 ) {
-                    ConversationMessages(getInbox())
+                    Conversations(threads = getThreads())
                 }
             }
         }
@@ -127,7 +127,7 @@ fun Conversations(threads: List<Thread>) {
                 if (it.pfp_uri != null) {
                 }
             }
-            ConversationPreview(title = title, lastMessage = Message("I haven't quite figured this out yet :/", arrayOf(Address("Chrissy"))), icon = icon)
+            ConversationPreview(title = title, lastMessage = Message("I haven't quite figured this out yet :/", arrayOf(Address("Chrissy")), arrayOf()), icon = icon)
         }
     }
 }
@@ -165,7 +165,7 @@ fun PreviewConversationPreview() {
     ProtoMMSTheme {
         ConversationPreview(
             "Funny GC",
-            Message("Chrissyyyy", arrayOf(Address("Miles"))),
+            Message("Chrissyyyy", arrayOf(Address("Miles")), arrayOf()),
             painterResource(R.drawable.profile_picture)
         )
     }
@@ -185,7 +185,7 @@ fun ConversationMessages(messages: ArrayList<Message>) {
 @Composable
 fun PreviewConversationMessages() {
     ProtoMMSTheme {
-        ConversationMessages(ArrayList(listOf(Message("I love android 🤓🤓🤓", arrayOf(Address("Lexi 😡😡😡"))))))
+        ConversationMessages(ArrayList(listOf(Message("I love android 🤓🤓🤓", arrayOf(Address("Lexi 😡😡😡")), arrayOf()))))
     }
 }
 
@@ -259,7 +259,7 @@ fun MessageCard(msg: Message) {
                 Button(
                     onClick = {
                         if (expandedState == 2) {
-                            sendMessage(Message(messageInput, arrayOf(Address(msg.sender.address))))
+                            sendMessage(Message(messageInput, arrayOf(Address(msg.sender.address)), arrayOf()))
                             messageInput = ""
                         } else {
                             expandedState = 2
@@ -287,7 +287,7 @@ fun PreviewMessageCard() {
     ProtoMMSTheme {
         Surface {
             MessageCard(
-                msg = Message("Hey, take a look at Jetpack Compose, it's great!", arrayOf(Address("Lexi")))
+                msg = Message("Hey, take a look at Jetpack Compose, it's great!", arrayOf(Address("Lexi")), arrayOf())
             )
         }
     }
