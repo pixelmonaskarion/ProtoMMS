@@ -1,24 +1,23 @@
 package io.github.pixelmonaskarion.protomms
 
+import android.R.attr.phoneNumber
 import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.Context
+import android.database.Cursor
+import android.net.Uri
 import android.os.Build
 import android.provider.ContactsContract.Contacts
-import android.provider.Telephony
-import android.provider.Telephony.Mms
+import android.provider.ContactsContract.PhoneLookup
 import android.provider.Telephony.Sms
-import android.provider.Telephony.Threads
 import android.telephony.SmsManager
 import android.telephony.SubscriptionManager
 import android.telephony.TelephonyManager
 import android.util.Log
-import com.google.protobuf.InvalidProtocolBufferException
 import io.github.pixelmonaskarion.protomms.proto.ProtoMms.Message
-import java.lang.NullPointerException
 
 
-data class Thread(val id: Int, val recipients: String)
+data class Thread(val id: Long, val lastMessage: Message?, val address: String)
 data class Contact(val id: Long, val displayName: String, val pfp_uri: String?)
 
 var contentResolver: ContentResolver? = null;
@@ -29,17 +28,30 @@ fun init(newContentResolver: ContentResolver, newContext: Context) {
     context = newContext;
 }
 
-@SuppressLint("Range")
 fun getInbox(): ArrayList<Message> {
     if (contentResolver == null) {
         return ArrayList()
     }
-    var messages = ArrayList<Message>()
     val uri = Sms.Inbox.CONTENT_URI;
     val cursor = contentResolver!!.query(uri, null, null, null, Sms.Inbox.DATE + " ASC")
+    val messages = parseMessages(cursor!!)
+    cursor.close()
+    // Close the cursor.
+    return messages
+}
+
+fun getThreadMessages(threadId: Long): ArrayList<Message> {
+    val cursor = contentResolver!!.query(Sms.CONTENT_URI, null, Sms.THREAD_ID+"="+threadId, null, Sms.DEFAULT_SORT_ORDER)
+    val messages = parseMessages(cursor!!)
+    return messages
+
+}
+
+@SuppressLint("Range")
+fun parseMessages(cursor: Cursor, maxMessages: Int = Int.MAX_VALUE): ArrayList<Message> {
+    var messages = ArrayList<Message>()
     var currentMessage = ""
-    while (cursor!!.moveToNext()) {
-        val address = cursor.getString(cursor.getColumnIndex(Sms.ADDRESS))
+    while (cursor!!.moveToNext() && messages.size < maxMessages) {
         val body = cursor.getString(cursor.getColumnIndex(Sms.BODY))
         if (body.startsWith("\uD83D\uDC0D")) {
             currentMessage += body.substring(1)
@@ -49,19 +61,17 @@ fun getInbox(): ArrayList<Message> {
             var messageOrNull = decodeMessage(currentMessage + body)
             if (messageOrNull != null) {
                 //sets the sender address to the expected value from the database to prevent stupid stuff with dubious messages
-                val finalMessage = messageOrNull.toBuilder()
-                    .setSender(messageOrNull.sender.toBuilder().setAddress(address).build()).build()
-                Log.d("PCS", finalMessage.toString())
+//                val finalMessage = messageOrNull.toBuilder()
+//                    .setSender(messageOrNull.sender.toBuilder().setAddress(address).build()).build()
+                Log.d("PCS", messageOrNull.toString())
                 Log.d("PCS", "Message from SMS $currentMessage$body")
-                messages.add(finalMessage)
+                messages.add(messageOrNull)
             }
             currentMessage = ""
         } catch (e: Exception) {
             currentMessage = ""
         }
     }
-    // Close the cursor.
-    cursor.close()
     return messages
 }
 
@@ -75,9 +85,15 @@ fun getThreads(): ArrayList<Thread> {
     val cursor = contentResolver!!.query(uri, null, null, null, Sms.Conversations.DEFAULT_SORT_ORDER)
     // Iterate through the cursor and print the MMS messages.
     while (cursor!!.moveToNext()) {
-        val id = cursor.getInt(cursor.getColumnIndex(Sms.Conversations._ID))
-        val recipients = cursor.getString(cursor.getColumnIndex(Sms.Conversations.ADDRESS))
-        messages.add(Thread(id, recipients))
+        val id = cursor.getLong(cursor.getColumnIndex("thread_id"))
+        val snippet = cursor.getString(cursor.getColumnIndex(Sms.Conversations.SNIPPET))
+        val messageCursor = contentResolver!!.query(Sms.CONTENT_URI, null, Sms.THREAD_ID+"="+id, null, Sms.DEFAULT_SORT_ORDER)
+        if (messageCursor!!.moveToFirst()) {
+            val address = messageCursor.getString(messageCursor.getColumnIndex(Sms.ADDRESS))
+            val parsedMessages = parseMessages(messageCursor)
+            messages.add(Thread(id, if (parsedMessages.size > 0) parsedMessages[0] else null, address))
+        }
+        messageCursor.close()
     }
     // Close the cursor.
     cursor.close()
@@ -99,6 +115,24 @@ fun getContactById(id: Long): Contact? {
         if (id == thisId) {
             return Contact(thisId, displayName, pfpUri);
         }
+    }
+    // Close the cursor.
+    cursor.close()
+    return null;
+}
+
+@SuppressLint("Range")
+fun getContactByNumber(phoneNumber: String): Contact? {
+    if (contentResolver == null) {
+        return null
+    }
+    val uri = Uri.withAppendedPath(PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber))
+    val cursor = contentResolver!!.query(uri, null, null, null, null);
+    while (cursor!!.moveToNext()) {
+        val displayName = cursor.getString(cursor.getColumnIndex(Contacts.DISPLAY_NAME))
+        val id = cursor.getLong(cursor.getColumnIndex(Contacts._ID))
+        val pfp = cursor.getString(cursor.getColumnIndex(Contacts.PHOTO_URI))
+        return Contact(id, displayName, pfp)
     }
     // Close the cursor.
     cursor.close()

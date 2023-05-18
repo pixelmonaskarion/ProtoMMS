@@ -35,6 +35,23 @@ fun Message(text: String?, recipients: Array<Address>, attachments: Array<Attach
     return message.build()
 }
 
+fun Message(text: String?, recipients: Array<Address>, attachments: Array<Attachment>, sender: Address): Message {
+    var message = Message.newBuilder()
+    if (text != null) {
+        message.text = text
+    }
+    recipients.forEach {
+        message.addRecipients(it)
+    }
+    for (attachment in attachments) {
+        message.addAttachments(attachment)
+    }
+    message.sender = sender
+    val uuid = UUID.randomUUID()
+    message.messageId = uuid.toString()
+    return message.build()
+}
+
 fun Address(address: String): Address {
     return Address.newBuilder().setAddress(address).build()
 }
