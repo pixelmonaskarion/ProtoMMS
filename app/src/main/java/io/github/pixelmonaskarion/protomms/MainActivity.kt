@@ -1,6 +1,7 @@
 package io.github.pixelmonaskarion.protomms
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.Context
 import android.content.pm.PackageManager
@@ -35,7 +36,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -211,11 +214,23 @@ fun PreviewConversationPreview() {
 }
 
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConversationMessages(messages: ArrayList<Message>) {
-    LazyColumn {
-        items(messages) { message ->
-            MessageCard(message)
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(onClick = {
+
+            }) {
+                Text(text = "NC")
+            }
+        }
+    ) {
+        LazyColumn {
+            items(messages) { message ->
+                MessageCard(message)
+            }
         }
     }
 }

@@ -1,12 +1,8 @@
 package io.github.pixelmonaskarion.protomms
 
 import android.annotation.SuppressLint
-import android.content.ContentResolver
-import android.content.ContentResolver.MimeTypeInfo
-import android.database.Cursor
 import android.net.Uri
 import android.provider.OpenableColumns
-import android.webkit.MimeTypeMap
 import io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address
 import io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment
 import io.github.pixelmonaskarion.protomms.proto.ProtoMms.Message
@@ -15,7 +11,6 @@ import java.io.FileInputStream
 import java.nio.file.Files
 import java.util.Base64
 import java.util.UUID
-import kotlin.io.path.Path
 
 
 fun Message(text: String?, recipients: Array<Address>, attachments: Array<Attachment>): Message {
@@ -29,7 +24,7 @@ fun Message(text: String?, recipients: Array<Address>, attachments: Array<Attach
     for (attachment in attachments) {
         message.addAttachments(attachment)
     }
-    message.sender = Address(getPhoneNumber()!!)
+    message.sender = Address(getPhoneNumber() ?: "hopethisisanemulator!")
     val uuid = UUID.randomUUID()
     message.messageId = uuid.toString()
     return message.build()
