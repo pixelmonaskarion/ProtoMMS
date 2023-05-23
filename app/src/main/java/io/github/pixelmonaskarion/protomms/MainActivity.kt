@@ -22,6 +22,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -66,22 +67,31 @@ class MainActivity : ComponentActivity() {
     val startApp = {
         setContent {
             var conversation: Long? by remember { mutableStateOf(null) }
+            var screen: String by remember { mutableStateOf("home") }
+            var conversations by remember { mutableStateOf(getThreads()) }
             ProtoMMSTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                 ) {
-                    if (conversation == null) {
-                        Conversations(threads = getThreads()) {
+                    if (screen == "home") {
+                        Conversations(threads = conversations, {
                             conversation = it
-                        }
-                    } else {
+                            screen = "messages"
+                        }, {
+                            conversation = null
+                            screen = "new chat"
+                        })
+                    } else if (screen == "messages") {
                         ConversationMessages(messages = getThreadMessages(conversation!!))
+                    } else if (screen == "new chat") {
+
                     }
                 }
             }
             BackHandler((conversation != null)) {
                 conversation = null
+                screen = "home"
             }
         }
     }
@@ -122,26 +132,65 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         init(contentResolver, this)
-        checkPermissions(arrayListOf(Manifest.permission.READ_SMS, Manifest.permission.SEND_SMS, Manifest.permission.READ_CONTACTS, Manifest.permission.READ_PHONE_NUMBERS), applicationContext)
+        val permissions = arrayListOf(Manifest.permission.READ_SMS, Manifest.permission.SEND_SMS, Manifest.permission.READ_CONTACTS, Manifest.permission.READ_PHONE_NUMBERS)
+        var allPermissionsAllowed = true
+        for (permission in permissions) {
+            if (!hasPermission(applicationContext, permission)) {
+                allPermissionsAllowed = false
+            }
+        }
+        if (allPermissionsAllowed) {
+            startApp()
+        } else {
+            setContent {
+                Column() {
+                    Text(text = "Please allow this app the following permissions:")
+                    Text(text = "Read and send SMS messages, this enables app functionality and is used solely inside the app.")
+                    Text(text = "View phone contacts, this is used for the purpose of displaying contact names and profile pictures inside the app")
+                    Text(text = "View the phone number of the current device, this allows the app to send PCS messages correctly")
+                    Button(onClick = {
+                        checkPermissions(permissions, applicationContext)
+                    }) {
+                        Text(text = "Continue")
+                    }
+                }
+            }
+        }
     }
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Conversations(threads: List<Thread>, openThread: (Long) -> Unit) {
-    LazyColumn {
-        items(threads) { thread ->
-            var title = thread.address
-            var icon = LocalContext.current.resourceUri(R.drawable.profile_picture)
-            val contact = getContactByNumber(thread.address)
-            if (contact != null) {
-                title = contact.displayName
-                if (contact.pfp_uri != null) {
-                    icon = Uri.parse(contact.pfp_uri)
-                }
+fun Conversations(threads: List<Thread>, openThread: (Long) -> Unit, newChat: () -> Unit) {
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(onClick = {
+
+            }) {
+                Text(text = "NC")
             }
-            ConversationPreview(title = title, lastMessage = thread.lastMessage, icon = icon, openThread = {
-                openThread(thread.id)
-            })
+        }
+    ) {
+        LazyColumn {
+            items(threads) { thread ->
+                var title = thread.address
+                var icon = LocalContext.current.resourceUri(R.drawable.profile_picture)
+                val contact = getContactByNumber(thread.address)
+                if (contact != null) {
+                    title = contact.displayName
+                    if (contact.pfp_uri != null) {
+                        icon = Uri.parse(contact.pfp_uri)
+                    }
+                }
+                ConversationPreview(
+                    title = title,
+                    lastMessage = thread.lastMessage,
+                    icon = icon,
+                    openThread = {
+                        openThread(thread.id)
+                    })
+            }
         }
     }
 }
@@ -159,6 +208,7 @@ fun Context.resourceUri(resourceId: Int): Uri = with(resources) {
 fun ConversationPreview(title: String, lastMessage: Message?, icon: Uri, openThread: () -> Unit) {
     Row(modifier = Modifier
         .padding(all = 8.dp)
+        .width(LocalConfiguration.current.screenWidthDp.dp)
         .clickable {
             openThread()
         }) {
@@ -218,19 +268,9 @@ fun PreviewConversationPreview() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConversationMessages(messages: ArrayList<Message>) {
-    Scaffold(
-        floatingActionButton = {
-            FloatingActionButton(onClick = {
-
-            }) {
-                Text(text = "NC")
-            }
-        }
-    ) {
-        LazyColumn {
-            items(messages) { message ->
-                MessageCard(message)
-            }
+    LazyColumn {
+        items(messages) { message ->
+            MessageCard(message)
         }
     }
 }

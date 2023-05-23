@@ -43,6 +43,7 @@ fun getInbox(): ArrayList<Message> {
 fun getThreadMessages(threadId: Long): ArrayList<Message> {
     val cursor = contentResolver!!.query(Sms.CONTENT_URI, null, Sms.THREAD_ID+"="+threadId, null, Sms.DEFAULT_SORT_ORDER)
     val messages = parseMessages(cursor!!)
+    cursor.close()
     return messages
 
 }
@@ -63,8 +64,6 @@ fun parseMessages(cursor: Cursor, maxMessages: Int = Int.MAX_VALUE): ArrayList<M
                 //sets the sender address to the expected value from the database to prevent stupid stuff with dubious messages
 //                val finalMessage = messageOrNull.toBuilder()
 //                    .setSender(messageOrNull.sender.toBuilder().setAddress(address).build()).build()
-                Log.d("PCS", messageOrNull.toString())
-                Log.d("PCS", "Message from SMS $currentMessage$body")
                 messages.add(messageOrNull)
             }
             currentMessage = ""
@@ -113,6 +112,7 @@ fun getContactById(id: Long): Contact? {
         val displayName = cursor.getString(cursor.getColumnIndex(Contacts.DISPLAY_NAME))
         val pfpUri = cursor.getString(cursor.getColumnIndex(Contacts.PHOTO_URI))
         if (id == thisId) {
+            cursor.close()
             return Contact(thisId, displayName, pfpUri);
         }
     }
@@ -132,6 +132,7 @@ fun getContactByNumber(phoneNumber: String): Contact? {
         val displayName = cursor.getString(cursor.getColumnIndex(Contacts.DISPLAY_NAME))
         val id = cursor.getLong(cursor.getColumnIndex(Contacts._ID))
         val pfp = cursor.getString(cursor.getColumnIndex(Contacts.PHOTO_URI))
+        cursor.close()
         return Contact(id, displayName, pfp)
     }
     // Close the cursor.
