@@ -27,6 +27,7 @@ fun Message(text: String?, recipients: Array<Address>, attachments: Array<Attach
     message.sender = Address(getPhoneNumber() ?: "hopethisisanemulator!")
     val uuid = UUID.randomUUID()
     message.messageId = uuid.toString()
+    message.sentTimestamp = System.currentTimeMillis()
     return message.build()
 }
 
@@ -44,6 +45,7 @@ fun Message(text: String?, recipients: Array<Address>, attachments: Array<Attach
     message.sender = sender
     val uuid = UUID.randomUUID()
     message.messageId = uuid.toString()
+    message.sentTimestamp = System.currentTimeMillis()
     return message.build()
 }
 

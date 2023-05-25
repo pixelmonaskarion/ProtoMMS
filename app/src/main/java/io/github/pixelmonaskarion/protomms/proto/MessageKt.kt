@@ -235,6 +235,23 @@ public object MessageKt {
       _builder.clearRecipients()
     }
 
+
+    /**
+     * `int64 sent_timestamp = 6;`
+     */
+    public var sentTimestamp: kotlin.Long
+      @JvmName("getSentTimestamp")
+      get() = _builder.getSentTimestamp()
+      @JvmName("setSentTimestamp")
+      set(value) {
+        _builder.setSentTimestamp(value)
+      }
+    /**
+     * `int64 sent_timestamp = 6;`
+     */
+    public fun clearSentTimestamp() {
+      _builder.clearSentTimestamp()
+    }
   }
 }
 @kotlin.jvm.JvmSynthetic

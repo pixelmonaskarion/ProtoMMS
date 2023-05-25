@@ -8,6 +8,7 @@ message Message {
   string message_id = 3;
   Address sender = 4;
   repeated Address recipients = 5;
+  int64 sent_timestamp = 6;
 }
 
 message Address {

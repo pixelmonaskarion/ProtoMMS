@@ -109,6 +109,12 @@ public final class ProtoMms {
      */
     io.github.pixelmonaskarion.protomms.proto.ProtoMms.AddressOrBuilder getRecipientsOrBuilder(
         int index);
+
+    /**
+     * <code>int64 sent_timestamp = 6;</code>
+     * @return The sentTimestamp.
+     */
+    long getSentTimestamp();
   }
   /**
    * Protobuf type {@code io.github.pixelmonaskarion.protomms.proto.Message}
@@ -344,6 +350,17 @@ public final class ProtoMms {
       return recipients_.get(index);
     }
 
+    public static final int SENT_TIMESTAMP_FIELD_NUMBER = 6;
+    private long sentTimestamp_ = 0L;
+    /**
+     * <code>int64 sent_timestamp = 6;</code>
+     * @return The sentTimestamp.
+     */
+    @java.lang.Override
+    public long getSentTimestamp() {
+      return sentTimestamp_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -373,6 +390,9 @@ public final class ProtoMms {
       for (int i = 0; i < recipients_.size(); i++) {
         output.writeMessage(5, recipients_.get(i));
       }
+      if (sentTimestamp_ != 0L) {
+        output.writeInt64(6, sentTimestamp_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -399,6 +419,10 @@ public final class ProtoMms {
       for (int i = 0; i < recipients_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(5, recipients_.get(i));
+      }
+      if (sentTimestamp_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(6, sentTimestamp_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -431,6 +455,8 @@ public final class ProtoMms {
       }
       if (!getRecipientsList()
           .equals(other.getRecipientsList())) return false;
+      if (getSentTimestamp()
+          != other.getSentTimestamp()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -460,6 +486,9 @@ public final class ProtoMms {
         hash = (37 * hash) + RECIPIENTS_FIELD_NUMBER;
         hash = (53 * hash) + getRecipientsList().hashCode();
       }
+      hash = (37 * hash) + SENT_TIMESTAMP_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getSentTimestamp());
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -610,6 +639,7 @@ public final class ProtoMms {
           recipientsBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000010);
+        sentTimestamp_ = 0L;
         return this;
       }
 
@@ -677,6 +707,9 @@ public final class ProtoMms {
           result.sender_ = senderBuilder_ == null
               ? sender_
               : senderBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000020) != 0)) {
+          result.sentTimestamp_ = sentTimestamp_;
         }
         result.bitField0_ |= to_bitField0_;
       }
@@ -758,6 +791,9 @@ public final class ProtoMms {
             }
           }
         }
+        if (other.getSentTimestamp() != 0L) {
+          setSentTimestamp(other.getSentTimestamp());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -827,6 +863,11 @@ public final class ProtoMms {
                 }
                 break;
               } // case 42
+              case 48: {
+                sentTimestamp_ = input.readInt64();
+                bitField0_ |= 0x00000020;
+                break;
+              } // case 48
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -1592,6 +1633,38 @@ public final class ProtoMms {
           recipients_ = null;
         }
         return recipientsBuilder_;
+      }
+
+      private long sentTimestamp_ ;
+      /**
+       * <code>int64 sent_timestamp = 6;</code>
+       * @return The sentTimestamp.
+       */
+      @java.lang.Override
+      public long getSentTimestamp() {
+        return sentTimestamp_;
+      }
+      /**
+       * <code>int64 sent_timestamp = 6;</code>
+       * @param value The sentTimestamp to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSentTimestamp(long value) {
+
+        sentTimestamp_ = value;
+        bitField0_ |= 0x00000020;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 sent_timestamp = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSentTimestamp() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        sentTimestamp_ = 0L;
+        onChanged();
+        return this;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -3015,16 +3088,17 @@ public final class ProtoMms {
     java.lang.String[] descriptorData = {
       "\n9io/github/pixelmonaskarion/protomms/pr" +
       "oto/proto_mms.proto\022)io.github.pixelmona" +
-      "skarion.protomms.proto\"\221\002\n\007Message\022\021\n\004te" +
+      "skarion.protomms.proto\"\251\002\n\007Message\022\021\n\004te" +
       "xt\030\001 \001(\tH\000\210\001\001\022J\n\013attachments\030\002 \003(\01325.io." +
       "github.pixelmonaskarion.protomms.proto.A" +
       "ttachment\022\022\n\nmessage_id\030\003 \001(\t\022B\n\006sender\030" +
       "\004 \001(\01322.io.github.pixelmonaskarion.proto" +
       "mms.proto.Address\022F\n\nrecipients\030\005 \003(\01322." +
       "io.github.pixelmonaskarion.protomms.prot" +
-      "o.AddressB\007\n\005_text\"\032\n\007Address\022\017\n\007address" +
-      "\030\001 \001(\t\"@\n\nAttachment\022\014\n\004data\030\001 \001(\t\022\021\n\tmi" +
-      "me_type\030\002 \001(\t\022\021\n\tfile_name\030\003 \001(\tb\006proto3"
+      "o.Address\022\026\n\016sent_timestamp\030\006 \001(\003B\007\n\005_te" +
+      "xt\"\032\n\007Address\022\017\n\007address\030\001 \001(\t\"@\n\nAttach" +
+      "ment\022\014\n\004data\030\001 \001(\t\022\021\n\tmime_type\030\002 \001(\t\022\021\n" +
+      "\tfile_name\030\003 \001(\tb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -3035,7 +3109,7 @@ public final class ProtoMms {
     internal_static_io_github_pixelmonaskarion_protomms_proto_Message_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_io_github_pixelmonaskarion_protomms_proto_Message_descriptor,
-        new java.lang.String[] { "Text", "Attachments", "MessageId", "Sender", "Recipients", "Text", });
+        new java.lang.String[] { "Text", "Attachments", "MessageId", "Sender", "Recipients", "SentTimestamp", "Text", });
     internal_static_io_github_pixelmonaskarion_protomms_proto_Address_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_io_github_pixelmonaskarion_protomms_proto_Address_fieldAccessorTable = new

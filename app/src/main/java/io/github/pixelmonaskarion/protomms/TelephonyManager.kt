@@ -7,6 +7,7 @@ import android.content.Context
 import android.database.Cursor
 import android.net.Uri
 import android.os.Build
+import android.provider.ContactsContract
 import android.provider.ContactsContract.Contacts
 import android.provider.ContactsContract.PhoneLookup
 import android.provider.Telephony.Sms
@@ -18,7 +19,7 @@ import io.github.pixelmonaskarion.protomms.proto.ProtoMms.Message
 
 
 data class Thread(val id: Long, val lastMessage: Message?, val address: String)
-data class Contact(val id: Long, val displayName: String, val pfp_uri: String?)
+data class Contact(val id: Long, val displayName: String, val pfp_uri: String?, val phoneNumber: String?)
 
 var contentResolver: ContentResolver? = null;
 private var context: Context? = null;
@@ -44,8 +45,24 @@ fun getThreadMessages(threadId: Long): ArrayList<Message> {
     val cursor = contentResolver!!.query(Sms.CONTENT_URI, null, Sms.THREAD_ID+"="+threadId, null, Sms.DEFAULT_SORT_ORDER)
     val messages = parseMessages(cursor!!)
     cursor.close()
+    messages.sortBy {
+        it.sentTimestamp
+    }
     return messages
+}
 
+@SuppressLint("Range")
+fun getThread(threadId: Long): Thread? {
+    val messageCursor = contentResolver!!.query(Sms.CONTENT_URI, null, Sms.THREAD_ID+"="+threadId, null, Sms.DEFAULT_SORT_ORDER)
+    if (messageCursor!!.moveToFirst()) {
+        val address = messageCursor.getString(messageCursor.getColumnIndex(Sms.ADDRESS))
+        val parsedMessages = parseMessages(messageCursor)
+        if (parsedMessages.size > 0) {
+            return Thread(threadId, parsedMessages[0], address)
+        }
+        return Thread(threadId, null, address)
+    }
+    return null
 }
 
 @SuppressLint("Range")
@@ -59,13 +76,8 @@ fun parseMessages(cursor: Cursor, maxMessages: Int = Int.MAX_VALUE): ArrayList<M
             continue
         }
         try {
-            var messageOrNull = decodeMessage(currentMessage + body)
-            if (messageOrNull != null) {
-                //sets the sender address to the expected value from the database to prevent stupid stuff with dubious messages
-//                val finalMessage = messageOrNull.toBuilder()
-//                    .setSender(messageOrNull.sender.toBuilder().setAddress(address).build()).build()
-                messages.add(messageOrNull)
-            }
+            val messageOrNull = decodeMessage(currentMessage + body)
+            messages.add(messageOrNull)
             currentMessage = ""
         } catch (e: Exception) {
             currentMessage = ""
@@ -90,12 +102,22 @@ fun getThreads(): ArrayList<Thread> {
         if (messageCursor!!.moveToFirst()) {
             val address = messageCursor.getString(messageCursor.getColumnIndex(Sms.ADDRESS))
             val parsedMessages = parseMessages(messageCursor)
-            messages.add(Thread(id, if (parsedMessages.size > 0) parsedMessages[0] else null, address))
+            if (parsedMessages.size > 0) {
+                messages.add(Thread(id, parsedMessages[0], address))
+            }
         }
         messageCursor.close()
     }
     // Close the cursor.
     cursor.close()
+    messages.sortBy {
+        if (it.lastMessage != null) {
+            return@sortBy it.lastMessage.sentTimestamp
+        } else {
+            return@sortBy null
+        }
+    }
+    messages.reverse()
     return messages
 }
 
@@ -113,12 +135,34 @@ fun getContactById(id: Long): Contact? {
         val pfpUri = cursor.getString(cursor.getColumnIndex(Contacts.PHOTO_URI))
         if (id == thisId) {
             cursor.close()
-            return Contact(thisId, displayName, pfpUri);
+            val phoneNumber = getPhoneNumberFromContactID(contentResolver!!, thisId.toString())
+            return Contact(thisId, displayName, pfpUri, phoneNumber);
         }
     }
     // Close the cursor.
     cursor.close()
     return null;
+}
+
+@SuppressLint("Range")
+fun getPhoneNumberFromContactID(contentResolver: ContentResolver, contactId: String): String? {
+    var phoneNumber: String? = null
+
+    val phoneCursor = contentResolver.query(
+        ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+        null,
+        ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
+        arrayOf(contactId),
+        null
+    )
+
+    phoneCursor?.use {
+        if (it.moveToFirst()) {
+            phoneNumber = it.getString(it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+        }
+    }
+
+    return phoneNumber
 }
 
 @SuppressLint("Range")
@@ -133,11 +177,75 @@ fun getContactByNumber(phoneNumber: String): Contact? {
         val id = cursor.getLong(cursor.getColumnIndex(Contacts._ID))
         val pfp = cursor.getString(cursor.getColumnIndex(Contacts.PHOTO_URI))
         cursor.close()
-        return Contact(id, displayName, pfp)
+        val phoneNumber = getPhoneNumberFromContactID(contentResolver!!, id.toString())
+        return Contact(id, displayName, pfp, phoneNumber)
     }
     // Close the cursor.
     cursor.close()
     return null;
+}
+
+@SuppressLint("Range")
+fun getContactByDisplayName(displayName: String): Contact? {
+    if (contentResolver == null) {
+        return null
+    }
+    val uri = Contacts.CONTENT_URI;
+    val selection = "${ContactsContract.Contacts.DISPLAY_NAME} = ?"
+    val selectionArgs = arrayOf(displayName)
+
+    val cursor = contentResolver!!.query(
+        ContactsContract.Contacts.CONTENT_URI,
+        null,
+        selection,
+        selectionArgs,
+        null
+    )
+    // Iterate through the cursor and print the MMS messages.
+    while (cursor!!.moveToNext()) {
+        val thisId = cursor.getLong(cursor.getColumnIndex(Contacts._ID))
+        val pfpUri = cursor.getString(cursor.getColumnIndex(Contacts.PHOTO_URI))
+        cursor.close()
+        val phoneNumber = getPhoneNumberFromContactID(contentResolver!!, thisId.toString())
+        return Contact(thisId, displayName, pfpUri, phoneNumber);
+    }
+    cursor.close()
+    return null;
+}
+
+@SuppressLint("Range")
+fun searchContacts(contactName: String): ArrayList<Contact> {
+    if (contentResolver == null) {
+        return arrayListOf()
+    }
+    var contacts = arrayListOf<Contact>()
+    val searchString = "%$contactName%"
+
+    val projection = arrayOf(
+        ContactsContract.Contacts._ID,
+        ContactsContract.Contacts.DISPLAY_NAME,
+        ContactsContract.Contacts.PHOTO_URI
+    )
+
+    val selection = "${ContactsContract.Contacts.DISPLAY_NAME} LIKE ?"
+    val selectionArgs = arrayOf(searchString)
+
+    val cursor = contentResolver!!.query(
+        ContactsContract.Contacts.CONTENT_URI,
+        projection,
+        selection,
+        selectionArgs,
+        null
+    )
+    while (cursor!!.moveToNext()) {
+        val displayName = cursor.getString(cursor.getColumnIndex(Contacts.DISPLAY_NAME))
+        val id = cursor.getLong(cursor.getColumnIndex(Contacts._ID))
+        val pfp = cursor.getString(cursor.getColumnIndex(Contacts.PHOTO_URI))
+        val phoneNumber = getPhoneNumberFromContactID(contentResolver!!, id.toString())
+        contacts.add(Contact(id, displayName, pfp, phoneNumber))
+    }
+    cursor.close()
+    return contacts
 }
 
 @SuppressLint("MissingPermission", "HardwareIds")
