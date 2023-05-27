@@ -28,20 +28,20 @@ public object AttachmentKt {
     internal fun _build(): io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment = _builder.build()
 
     /**
-     * `string data = 1;`
+     * `string url = 1;`
      */
-    public var data: kotlin.String
-      @JvmName("getData")
-      get() = _builder.getData()
-      @JvmName("setData")
+    public var url: kotlin.String
+      @JvmName("getUrl")
+      get() = _builder.getUrl()
+      @JvmName("setUrl")
       set(value) {
-        _builder.setData(value)
+        _builder.setUrl(value)
       }
     /**
-     * `string data = 1;`
+     * `string url = 1;`
      */
-    public fun clearData() {
-      _builder.clearData()
+    public fun clearUrl() {
+      _builder.clearUrl()
     }
 
     /**

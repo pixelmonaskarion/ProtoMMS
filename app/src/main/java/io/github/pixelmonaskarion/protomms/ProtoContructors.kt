@@ -53,16 +53,10 @@ fun Address(address: String): Address {
     return Address.newBuilder().setAddress(address).build()
 }
 
-fun Attachment(file: File): Attachment {
-    val data = Base64.getEncoder().encodeToString(FileInputStream(file).readBytes())
-    val fileName = file.name
-    val mimeType = Files.probeContentType(file.toPath())
-    return Attachment.newBuilder().setData(data).setFileName(fileName).setMimeType(mimeType).build()
-}
-
 @SuppressLint("Range")
 fun Attachment(fileUri: Uri): Attachment {
-    val data = Base64.getEncoder().encodeToString(contentResolver!!.openInputStream(fileUri)!!.readBytes())
+    val mimeType = contentResolver!!.getType(fileUri)
+    val url = uploadAttachment(fileUri, mimeType!!)
     var fileName: String? = null;
     var cursor = contentResolver!!.query(fileUri, null, null, null, null)
     try {
@@ -72,6 +66,5 @@ fun Attachment(fileUri: Uri): Attachment {
     } finally {
         cursor!!.close();
     }
-    val mimeType = contentResolver!!.getType(fileUri)
-    return Attachment.newBuilder().setData(data).setFileName(fileName).setMimeType(mimeType).build()
+    return Attachment.newBuilder().setUrl(url).setFileName(fileName).setMimeType(mimeType).build()
 }

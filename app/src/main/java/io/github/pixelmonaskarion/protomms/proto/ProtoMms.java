@@ -2253,16 +2253,16 @@ public final class ProtoMms {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string data = 1;</code>
-     * @return The data.
+     * <code>string url = 1;</code>
+     * @return The url.
      */
-    java.lang.String getData();
+    java.lang.String getUrl();
     /**
-     * <code>string data = 1;</code>
-     * @return The bytes for data.
+     * <code>string url = 1;</code>
+     * @return The bytes for url.
      */
     com.google.protobuf.ByteString
-        getDataBytes();
+        getUrlBytes();
 
     /**
      * <code>string mime_type = 2;</code>
@@ -2301,7 +2301,7 @@ public final class ProtoMms {
       super(builder);
     }
     private Attachment() {
-      data_ = "";
+      url_ = "";
       mimeType_ = "";
       fileName_ = "";
     }
@@ -2326,39 +2326,39 @@ public final class ProtoMms {
               io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment.class, io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment.Builder.class);
     }
 
-    public static final int DATA_FIELD_NUMBER = 1;
+    public static final int URL_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
-    private volatile java.lang.Object data_ = "";
+    private volatile java.lang.Object url_ = "";
     /**
-     * <code>string data = 1;</code>
-     * @return The data.
+     * <code>string url = 1;</code>
+     * @return The url.
      */
     @java.lang.Override
-    public java.lang.String getData() {
-      java.lang.Object ref = data_;
+    public java.lang.String getUrl() {
+      java.lang.Object ref = url_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        data_ = s;
+        url_ = s;
         return s;
       }
     }
     /**
-     * <code>string data = 1;</code>
-     * @return The bytes for data.
+     * <code>string url = 1;</code>
+     * @return The bytes for url.
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getDataBytes() {
-      java.lang.Object ref = data_;
+        getUrlBytes() {
+      java.lang.Object ref = url_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        data_ = b;
+        url_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -2457,8 +2457,8 @@ public final class ProtoMms {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(data_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, data_);
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(url_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, url_);
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(mimeType_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, mimeType_);
@@ -2475,8 +2475,8 @@ public final class ProtoMms {
       if (size != -1) return size;
 
       size = 0;
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(data_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, data_);
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(url_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, url_);
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(mimeType_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, mimeType_);
@@ -2499,8 +2499,8 @@ public final class ProtoMms {
       }
       io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment other = (io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment) obj;
 
-      if (!getData()
-          .equals(other.getData())) return false;
+      if (!getUrl()
+          .equals(other.getUrl())) return false;
       if (!getMimeType()
           .equals(other.getMimeType())) return false;
       if (!getFileName()
@@ -2516,8 +2516,8 @@ public final class ProtoMms {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + DATA_FIELD_NUMBER;
-      hash = (53 * hash) + getData().hashCode();
+      hash = (37 * hash) + URL_FIELD_NUMBER;
+      hash = (53 * hash) + getUrl().hashCode();
       hash = (37 * hash) + MIME_TYPE_FIELD_NUMBER;
       hash = (53 * hash) + getMimeType().hashCode();
       hash = (37 * hash) + FILE_NAME_FIELD_NUMBER;
@@ -2651,7 +2651,7 @@ public final class ProtoMms {
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
-        data_ = "";
+        url_ = "";
         mimeType_ = "";
         fileName_ = "";
         return this;
@@ -2688,7 +2688,7 @@ public final class ProtoMms {
       private void buildPartial0(io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.data_ = data_;
+          result.url_ = url_;
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
           result.mimeType_ = mimeType_;
@@ -2710,8 +2710,8 @@ public final class ProtoMms {
 
       public Builder mergeFrom(io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment other) {
         if (other == io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment.getDefaultInstance()) return this;
-        if (!other.getData().isEmpty()) {
-          data_ = other.data_;
+        if (!other.getUrl().isEmpty()) {
+          url_ = other.url_;
           bitField0_ |= 0x00000001;
           onChanged();
         }
@@ -2752,7 +2752,7 @@ public final class ProtoMms {
                 done = true;
                 break;
               case 10: {
-                data_ = input.readStringRequireUtf8();
+                url_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000001;
                 break;
               } // case 10
@@ -2783,73 +2783,73 @@ public final class ProtoMms {
       }
       private int bitField0_;
 
-      private java.lang.Object data_ = "";
+      private java.lang.Object url_ = "";
       /**
-       * <code>string data = 1;</code>
-       * @return The data.
+       * <code>string url = 1;</code>
+       * @return The url.
        */
-      public java.lang.String getData() {
-        java.lang.Object ref = data_;
+      public java.lang.String getUrl() {
+        java.lang.Object ref = url_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          data_ = s;
+          url_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string data = 1;</code>
-       * @return The bytes for data.
+       * <code>string url = 1;</code>
+       * @return The bytes for url.
        */
       public com.google.protobuf.ByteString
-          getDataBytes() {
-        java.lang.Object ref = data_;
+          getUrlBytes() {
+        java.lang.Object ref = url_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          data_ = b;
+          url_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string data = 1;</code>
-       * @param value The data to set.
+       * <code>string url = 1;</code>
+       * @param value The url to set.
        * @return This builder for chaining.
        */
-      public Builder setData(
+      public Builder setUrl(
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
-        data_ = value;
+        url_ = value;
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
       /**
-       * <code>string data = 1;</code>
+       * <code>string url = 1;</code>
        * @return This builder for chaining.
        */
-      public Builder clearData() {
-        data_ = getDefaultInstance().getData();
+      public Builder clearUrl() {
+        url_ = getDefaultInstance().getUrl();
         bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
       /**
-       * <code>string data = 1;</code>
-       * @param value The bytes for data to set.
+       * <code>string url = 1;</code>
+       * @param value The bytes for url to set.
        * @return This builder for chaining.
        */
-      public Builder setDataBytes(
+      public Builder setUrlBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
-        data_ = value;
+        url_ = value;
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
@@ -3096,9 +3096,9 @@ public final class ProtoMms {
       "mms.proto.Address\022F\n\nrecipients\030\005 \003(\01322." +
       "io.github.pixelmonaskarion.protomms.prot" +
       "o.Address\022\026\n\016sent_timestamp\030\006 \001(\003B\007\n\005_te" +
-      "xt\"\032\n\007Address\022\017\n\007address\030\001 \001(\t\"@\n\nAttach" +
-      "ment\022\014\n\004data\030\001 \001(\t\022\021\n\tmime_type\030\002 \001(\t\022\021\n" +
-      "\tfile_name\030\003 \001(\tb\006proto3"
+      "xt\"\032\n\007Address\022\017\n\007address\030\001 \001(\t\"?\n\nAttach" +
+      "ment\022\013\n\003url\030\001 \001(\t\022\021\n\tmime_type\030\002 \001(\t\022\021\n\t" +
+      "file_name\030\003 \001(\tb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -3121,7 +3121,7 @@ public final class ProtoMms {
     internal_static_io_github_pixelmonaskarion_protomms_proto_Attachment_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_io_github_pixelmonaskarion_protomms_proto_Attachment_descriptor,
-        new java.lang.String[] { "Data", "MimeType", "FileName", });
+        new java.lang.String[] { "Url", "MimeType", "FileName", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

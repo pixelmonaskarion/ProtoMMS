@@ -16,7 +16,7 @@ message Address {
 }
 
 message Attachment {
-  string data = 1;
+  string url = 1;
   string mime_type = 2;
   string file_name = 3;
 }

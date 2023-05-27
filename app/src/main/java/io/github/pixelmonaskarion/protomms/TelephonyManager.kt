@@ -1,6 +1,5 @@
 package io.github.pixelmonaskarion.protomms
 
-import android.R.attr.phoneNumber
 import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.Context
@@ -10,12 +9,27 @@ import android.os.Build
 import android.provider.ContactsContract
 import android.provider.ContactsContract.Contacts
 import android.provider.ContactsContract.PhoneLookup
+import android.provider.OpenableColumns
 import android.provider.Telephony.Sms
 import android.telephony.SmsManager
 import android.telephony.SubscriptionManager
 import android.telephony.TelephonyManager
 import android.util.Log
 import io.github.pixelmonaskarion.protomms.proto.ProtoMms.Message
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.Response
+import java.io.ByteArrayOutputStream
+import java.io.IOException
+import java.io.InputStream
+import java.util.UUID
 
 
 data class Thread(val id: Long, val lastMessage: Message?, val address: String)
@@ -287,4 +301,72 @@ fun sendMessage(message: Message) {
             smsManager.sendTextMessage(recipient.address, null, if (i == messageParts.size-1) text else "\uD83D\uDC0D"+text, null, null)
         }
     }
+}
+
+@SuppressLint("Range")
+fun getFileName(uri: Uri): String? {
+    var result: String? = null
+    if (uri.scheme == "content") {
+        val cursor: Cursor = contentResolver!!.query(uri, null, null, null, null)!!
+        try {
+            if (cursor != null && cursor.moveToFirst()) {
+                result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+            }
+        } finally {
+            cursor.close()
+        }
+    }
+    if (result == null) {
+        result = uri.path
+        val cut = result!!.lastIndexOf('/')
+        if (cut != -1) {
+            result = result.substring(cut + 1)
+        }
+    }
+    return result
+}
+
+fun readUriToBytes(uri: Uri): ByteArray {
+    val input = contentResolver!!.openInputStream(uri)
+    val bytes = input!!.readBytes()
+    input.close()
+    return bytes
+}
+
+fun uploadAttachment(uri: Uri, mimeType: String): String {
+    val URL = "http://ec2-34-220-175-228.us-west-2.compute.amazonaws.com";
+    val uuid = UUID.randomUUID().toString()
+    val extension = contentResolver!!.getType(uri)!!
+    val client = OkHttpClient()
+    val uriByteArray = readUriToBytes(uri)
+    val requestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
+        .addFormDataPart(
+            "file", getFileName(uri),
+            uriByteArray.toRequestBody(mimeType.toMediaTypeOrNull(), 0, uriByteArray.size)
+        )
+        .addFormDataPart("uuid", uuid)
+        .addFormDataPart("extension", extension)
+        .build()
+    val request = Request.Builder()
+            //no one use my ec2 for web storage lol
+        .url("$URL/post-attachment")
+        .post(requestBody)
+        .build()
+    client.newCall(request).enqueue(object : Callback {
+        override fun onFailure(call: Call, e: IOException) {
+            e.printStackTrace()
+        }
+
+        @Throws(IOException::class)
+        override fun onResponse(call: Call, response: Response) {
+            if (!response.isSuccessful) {
+                // Handle the error
+            } else {
+                // Handle the response
+                val responseData = response.body!!.string()
+                // Do something with the response
+            }
+        }
+    })
+    return "$URL/$uuid.$extension"
 }

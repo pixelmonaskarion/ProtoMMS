@@ -6,18 +6,14 @@ import android.content.ContentResolver
 import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.graphics.ImageDecoder
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
-import android.provider.Telephony.Sms.Conversations
 import android.provider.Telephony.Threads
 import android.telephony.PhoneNumberUtils
-import android.telephony.SmsManager
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.animateColorAsState
@@ -46,8 +42,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Build
-import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -69,18 +63,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import coil.compose.rememberAsyncImagePainter
-import io.github.pixelmonaskarion.protomms.proto.ProtoMms.Address
+import io.github.pixelmonaskarion.protomms.proto.ProtoMms
 import io.github.pixelmonaskarion.protomms.proto.ProtoMms.Message
 import io.github.pixelmonaskarion.protomms.ui.theme.ProtoMMSTheme
 import kotlinx.coroutines.launch
@@ -385,14 +376,31 @@ fun PreviewConversationPreview() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MessageInputBox(
-    onSend: (String) -> Unit
+    onSend: (String, Uri?) -> Unit
 ) {
     val (message, setMessage) = remember { mutableStateOf("") }
-
+    var fileUri: Uri? by remember { mutableStateOf(null) }
+    val pickPictureLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { imageUri ->
+        if (imageUri != null) {
+            fileUri = imageUri
+        }
+    }
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.End
     ) {
+        IconButton(
+            onClick = {
+                pickPictureLauncher.launch("*/*")
+            }
+        ) {
+            Icon(
+                Icons.Filled.Add,
+                contentDescription = "File Upload Button"
+            )
+        }
         OutlinedTextField(
             value = message,
             onValueChange = setMessage,
@@ -403,14 +411,14 @@ fun MessageInputBox(
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
             keyboardActions = KeyboardActions(
                 onSend = {
-                    onSend(message)
+                    onSend(message, fileUri)
                     setMessage("")
                 }
             )
         )
         IconButton(
             onClick = {
-                onSend(message)
+                onSend(message, fileUri)
                 setMessage("")
             }
         ) {
@@ -425,7 +433,7 @@ fun MessageInputBox(
 @Preview(showBackground = true)
 @Composable
 fun MessageInputBoxPreview() {
-    MessageInputBox(onSend = {})
+    MessageInputBox(onSend = { _, _ -> })
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
@@ -451,9 +459,19 @@ fun ConversationMessages(messages: ArrayList<Message>, conversation: Long) {
             modifier = Modifier.wrapContentSize(),
             contentAlignment = Alignment.BottomCenter,
         ) {
-            MessageInputBox(onSend = {
-                sendMessage(Message(it, arrayOf(Address(getThread(conversation)!!.address)), arrayOf()))
-            })
+            MessageInputBox { body, attachmentUri ->
+                var attachments: Array<ProtoMms.Attachment> = arrayOf();
+                if (attachmentUri != null) {
+                    attachments = arrayOf(Attachment(attachmentUri))
+                }
+                sendMessage(
+                    Message(
+                        body,
+                        arrayOf(Address(getThread(conversation)!!.address)),
+                        attachments
+                    )
+                )
+            }
         }
     }
 }
