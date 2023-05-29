@@ -30,6 +30,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.net.toFile
 import io.github.pixelmonaskarion.protomms.proto.ProtoMms.Attachment
 import io.github.pixelmonaskarion.protomms.ui.theme.ProtoMMSTheme
+import kotlinx.coroutines.runBlocking
 
 class TestSendActivity : ComponentActivity() {
     val startApp = {
@@ -114,7 +115,9 @@ fun SendMessage() {
             if (fileUri != null) {
                 attachments = arrayOf(Attachment(fileUri!!))
             }
-            sendMessage(Message(text, arrayOf(Address(recipient)), attachments))
+            runBlocking {
+                sendMessage(Message(text, arrayOf(Address(recipient)), attachments))
+            }
             text = ""
         }) {
             Text(text = "Send")

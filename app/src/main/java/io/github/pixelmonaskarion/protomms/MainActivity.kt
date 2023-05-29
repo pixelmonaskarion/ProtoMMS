@@ -75,11 +75,12 @@ import io.github.pixelmonaskarion.protomms.proto.ProtoMms
 import io.github.pixelmonaskarion.protomms.proto.ProtoMms.Message
 import io.github.pixelmonaskarion.protomms.ui.theme.ProtoMMSTheme
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class MainActivity : ComponentActivity() {
     val startApp = {
         setContent {
-            var conversation: Long? by remember { mutableStateOf(null) }
+            var conversation: Thread? by remember { mutableStateOf(null) }
             var screen: String by remember { mutableStateOf("home") }
             var conversations by remember { mutableStateOf(getThreads()) }
             ProtoMMSTheme {
@@ -96,7 +97,7 @@ class MainActivity : ComponentActivity() {
                             screen = "new chat"
                         })
                     } else if (screen == "messages") {
-                        ConversationMessages(messages = getThreadMessages(conversation!!), conversation = conversation!!)
+                        ConversationMessages(messages = getThreadMessages(conversation!!), thread = conversation!!)
                     } else if (screen == "new chat") {
                         NewChat {
                             Log.d("ProtoMMS", "conv id: $it")
@@ -184,7 +185,7 @@ fun NewChatPreview() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NewChat(startChat: (Long) -> Unit) {
+fun NewChat(startChat: (Thread) -> Unit) {
     var contactSearch by remember { mutableStateOf("") }
     var contacts = searchContacts(contactSearch)
     val context = LocalContext.current
@@ -202,10 +203,12 @@ fun NewChat(startChat: (Long) -> Unit) {
                 keyboardActions = KeyboardActions(onDone = {
                     val displayNameContact = getContactByDisplayName(contactSearch)
                     if (displayNameContact != null) {
-                        startChat(Threads.getOrCreateThreadId(context, displayNameContact.phoneNumber))
+                        val threadId = Threads.getOrCreateThreadId(context, displayNameContact.phoneNumber)
+                        startChat(Thread(threadId, getLastMessage(threadId), displayNameContact.phoneNumber!!))
                     } else {
                         if (PhoneNumberUtils.isGlobalPhoneNumber(PhoneNumberUtils.stripSeparators(contactSearch))) {
-                            startChat(Threads.getOrCreateThreadId(context, contactSearch))
+                            val threadId = Threads.getOrCreateThreadId(context, contactSearch)
+                            startChat(Thread(threadId, getLastMessage(threadId), contactSearch))
                         }
                     }
                 })
@@ -213,10 +216,12 @@ fun NewChat(startChat: (Long) -> Unit) {
             IconButton(onClick = {
                 val displayNameContact = getContactByDisplayName(contactSearch)
                 if (displayNameContact != null) {
-                    startChat(Threads.getOrCreateThreadId(context, displayNameContact.phoneNumber))
+                    val threadId = Threads.getOrCreateThreadId(context, displayNameContact.phoneNumber)
+                    startChat(Thread(threadId, getLastMessage(threadId), displayNameContact.phoneNumber!!))
                 } else {
                     if (PhoneNumberUtils.isGlobalPhoneNumber(PhoneNumberUtils.stripSeparators(contactSearch))) {
-                        startChat(Threads.getOrCreateThreadId(context, contactSearch))
+                        val threadId = Threads.getOrCreateThreadId(context, contactSearch)
+                        startChat(Thread(threadId, getLastMessage(threadId), contactSearch))
                     }
                 }
             }) {
@@ -230,7 +235,8 @@ fun NewChat(startChat: (Long) -> Unit) {
                     .padding(all = 8.dp)
                     .width(LocalConfiguration.current.screenWidthDp.dp)
                     .clickable {
-                        startChat(Threads.getOrCreateThreadId(context, it.phoneNumber))
+                        val threadId = Threads.getOrCreateThreadId(context, it.phoneNumber)
+                        startChat(Thread(threadId, getLastMessage(threadId), it.phoneNumber!!))
                     }) {
                     var icon = LocalContext.current.resourceUri(R.drawable.profile_picture)
                     if (it.pfp_uri != null) {
@@ -269,7 +275,7 @@ fun ConversationsPreview() {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Conversations(threads: List<Thread>, openThread: (Long) -> Unit, newChat: () -> Unit) {
+fun Conversations(threads: List<Thread>, openThread: (Thread) -> Unit, newChat: () -> Unit) {
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(onClick = {
@@ -298,7 +304,7 @@ fun Conversations(threads: List<Thread>, openThread: (Long) -> Unit, newChat: ()
                     lastMessage = thread.lastMessage,
                     icon = icon,
                     openThread = {
-                        openThread(thread.id)
+                        openThread(thread)
                     })
             }
         }
@@ -438,7 +444,7 @@ fun MessageInputBoxPreview() {
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
 @Composable
-fun ConversationMessages(messages: ArrayList<Message>, conversation: Long) {
+fun ConversationMessages(messages: ArrayList<Message>, thread: Thread) {
     val lazyColumnListState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
     if (messages.size > 0) {
@@ -464,13 +470,15 @@ fun ConversationMessages(messages: ArrayList<Message>, conversation: Long) {
                 if (attachmentUri != null) {
                     attachments = arrayOf(Attachment(attachmentUri))
                 }
-                sendMessage(
-                    Message(
-                        body,
-                        arrayOf(Address(getThread(conversation)!!.address)),
-                        attachments
+                runBlocking {
+                    sendMessage(
+                        Message(
+                            body,
+                            arrayOf(Address(thread.address)),
+                            attachments
+                        )
                     )
-                )
+                }
             }
         }
     }
@@ -480,7 +488,7 @@ fun ConversationMessages(messages: ArrayList<Message>, conversation: Long) {
 @Composable
 fun PreviewConversationMessages() {
     ProtoMMSTheme {
-        ConversationMessages(ArrayList(listOf(Message("I love android 🤓🤓🤓", arrayOf(Address("Lexi 😡😡😡")), arrayOf()))), 0)
+        ConversationMessages(ArrayList(listOf(Message("I love android 🤓🤓🤓", arrayOf(Address("Lexi 😡😡😡")), arrayOf()))), Thread(0, Message("", arrayOf(), arrayOf()), ""))
     }
 }
 
@@ -564,7 +572,9 @@ fun MessageCard(msg: Message) {
                 Button(
                     onClick = {
                         if (expandedState == 2) {
-                            sendMessage(Message(messageInput, arrayOf(Address(msg.sender.address)), arrayOf()))
+                            runBlocking {
+                                sendMessage(Message(messageInput, arrayOf(Address(msg.sender.address)), arrayOf()))
+                            }
                             messageInput = ""
                         } else {
                             expandedState = 2
