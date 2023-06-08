@@ -23,6 +23,8 @@
         android:enableOnBackInvokedCallback="true"
         tools:targetApi="28">
 
+        <service android:name="com.android.mms.transaction.TransactionService"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

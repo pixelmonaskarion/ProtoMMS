@@ -8,6 +8,7 @@ import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
 import android.os.Build
+import android.preference.PreferenceManager
 import android.provider.ContactsContract
 import android.provider.ContactsContract.Contacts
 import android.provider.ContactsContract.PhoneLookup
@@ -24,6 +25,8 @@ import com.google.mms.pdu.PduBody
 import com.google.mms.pdu.PduComposer
 import com.google.mms.pdu.PduPart
 import com.google.mms.pdu.SendReq
+import com.klinker.android.send_message.Settings
+import com.klinker.android.send_message.Transaction
 import io.github.pixelmonaskarion.protomms.proto.ProtoMms.Message
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -386,6 +389,8 @@ suspend fun sendMessage(message: Message) {
                 val pduFile = File.createTempFile("temp_mms", null, context!!.cacheDir)
                 pduFile.outputStream().write(pduData)
                 val pduUri = FileProvider.getUriForFile(context!!, context!!.packageName + ".fileprovider", pduFile)
+                Log.d("ProtoMMS", "pdu uri: $pduUri")
+                Log.d("ProtoMMS", "message part id: ${String(bodyPart.contentId)}")
                 Log.d("ProtoMMS", "sending MMS")
                 val sentIntent = Intent("com.example.ACTION_MMS_SENT")
                 val sentPI = PendingIntent.getBroadcast(
@@ -394,7 +399,18 @@ suspend fun sendMessage(message: Message) {
                     sentIntent,
                     PendingIntent.FLAG_IMMUTABLE
                 )
-                smsManager.sendMultimediaMessage(context!!, pduUri, null, null, sentPI)
+                //smsManager.sendMultimediaMessage(context!!, pduUri, null, null, sentPI, Random().nextLong())
+
+                var settings = Settings()
+                val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+
+                settings.mmsc = sharedPreferences.getString("mmsc_url", "")
+                settings.proxy = sharedPreferences.getString("mms_proxy", "")
+                settings.port = sharedPreferences.getString("mms_port", "")
+                settings.useSystemSending = true
+                var transaction = Transaction(context, settings)
+                var message = com.klinker.android.send_message.Message(encodedMessage, recipient.address)
+                transaction.sendNewMessage(message, Transaction.NO_THREAD_ID)
             }
         }
     }
